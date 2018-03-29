@@ -1,0 +1,89 @@
+<!doctype html>
+<head>
+    <title>Basic Example</title>
+    <script src="http://g.alicdn.com/evil-genius/pigeon-gl/1.0.3/lib/three.js" type="text/javascript"></script>
+    <script src="http://g.alicdn.com/evil-genius/pigeon-gl/1.0.3/pigeonGL.js" type="text/javascript"></script>
+    <style>
+        body, html { 
+            width: 100%;
+            height: 100%;
+            margin: 0;
+        }
+        #map { 
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div id='map' class='map'></div>
+    <script>
+    var map = new PigeonGL.Map({
+        container:document.getElementById("map"),
+        center:[0,0],
+        width:window.innerWidth,
+        height:window.innerHeight,
+        pitch:0,
+        rotation:0,
+        zoom:21
+    })
+
+    map.setupDefaultLights();
+    var mtlLoader = new PigeonGL.MTLLoader();
+    mtlLoader.setPath( './models/' );//加载皮肤
+    mtlLoader.load( 'Truck.mtl', function( materials ) {
+        materials.preload();
+        var objLoader =  new PigeonGL.OBJLoader();//加载模型
+        objLoader.setMaterials( materials );
+        objLoader.load("./models/Truck.obj",function(obj){
+            obj.rotation.y = Math.PI/2 ;
+            obj.rotation.x = Math.PI/2 ;
+            
+            var target = map.addAtCoordinate(obj,[0,0])
+            // startAnimation();
+        },function ( xhr ) {
+            console.log( ( xhr.loaded / xhr.total * 100 ) + '% loaded' );
+        })
+    });
+
+    map.scene.background = new THREE.Color(0xf0ffff);
+
+    //添加坐标线
+    var material = new THREE.LineBasicMaterial({
+        color: 0xff0000
+    });
+    var lineGeometry = new THREE.Geometry();
+    lineGeometry.vertices.push(
+        new THREE.Vector3( 0, 0, 0 ),
+        new THREE.Vector3( 1, 0, 0 )
+    );
+    var line = new THREE.Line( lineGeometry, material );
+    map.world.add(line);
+
+    var material = new THREE.LineBasicMaterial({
+        color: 0x00ff00
+    });
+    var lineGeometry = new THREE.Geometry();
+    lineGeometry.vertices.push(
+        new THREE.Vector3( 0, 0, 0 ),
+        new THREE.Vector3( 0, 1, 0 )
+    );
+    var line = new THREE.Line( lineGeometry, material );
+     map.world.add(line);
+    
+    var material = new THREE.LineBasicMaterial({
+        color: 0x0000ff
+    });
+    var lineGeometry = new THREE.Geometry();
+    lineGeometry.vertices.push(
+        new THREE.Vector3( 0, 0, 0 ),
+        new THREE.Vector3( 0, 0, 1 )
+    );
+    var line = new THREE.Line( lineGeometry, material );
+     map.world.add(line);
+    
+    var mapControl = new PigeonGL.MapControl();
+    map.addLayer(mapControl);
+       
+    </script>
+</body>

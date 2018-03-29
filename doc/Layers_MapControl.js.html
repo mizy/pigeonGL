@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>PigeonGL Source: Layers/MapControl.js</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.dark.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.readable.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top navbar-inverse">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">PigeonGL</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="Map.html">Map</a></li><li><a href="CameraControl.html">CameraControl</a></li><li><a href="Layer.html">Layer</a></li><li><a href="MapControl.html">MapControl</a></li><li><a href="TextLayer.html">TextLayer</a></li><li><a href="ThirdPersonLayer.html">ThirdPersonLayer</a></li><li><a href="MTLLoader.html">MTLLoader</a></li><li><a href="OBJLoader.html">OBJLoader</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="events.list.html" class="dropdown-toggle" data-toggle="dropdown">Events<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="MapControl.html#event:move">MapControl#event:move</a></li><li><a href="MapControl.html#event:rotate">MapControl#event:rotate</a></li><li><a href="MapControl.html#event:zoom">MapControl#event:zoom</a></li><li><a href="MapControl.html#event:change">MapControl#event:change</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html#PigeonGL">PigeonGL</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+			
+
+		<h1 class="page-title">Source: Layers/MapControl.js</h1>
+    
+<section>
+    <article>
+        <pre
+            class="sunlight-highlight-javascript linenums">import Layer from './Layer.js';
+
+/**
+ * 地图控制类
+ * @class
+ * @extends Layer
+ */
+class MapControl extends Layer{
+    
+   defaultParams={
+        moveSpeed:1,
+        pitchSpeed:0.1,
+        rotateSpeed:0.15
+   }
+
+   /**
+    * 构造函数
+    * @param {Object} config - config
+    * @param {number} config.moveSpeed - 移动速度
+    * @param {number} config.pitchSpeed - 角度改变速度
+    * @param {number} config.rotateSpeed - 旋转速度
+    */
+    constructor(config){
+       super(config);
+       for(var x in this.defaultParams){
+           if(!this[x]){
+               this[x] = this.defaultParams[x];
+           }
+       }
+    }
+
+    onAdd(map){
+        var _this = this;
+       this.pigeonMap = map;
+       this.map = this.pigeonMap.map;//用户配置或真实地图
+       this.cameraControl = this.pigeonMap.cameraControl;
+       this.initConfig();
+       this.listenEvents();
+       //添加相机更新函数
+       this.on("change",function(){
+           _this.pigeonMap.fire("change")
+           _this.cameraControl.updateMap();//更新用户参数为相机参数
+       })
+    }
+
+    initConfig(){
+       
+        var transform = {};
+    };
+
+    /**
+     * 监听事件
+     */
+    listenEvents(){
+        var _this = this;
+        var container = this.map.container;
+        this.onDown = function onDown(event){
+            if(event.button==0){//左键
+                _this.mouseStatus = 'left'
+            }else if(event.button==2){//右键
+                _this.mouseStatus = 'right'
+            }
+            _this.mouseDownPosition = {
+                x:event.clientX,
+                y:event.clientY
+            }
+            _this.map.container.addEventListener('mousemove',_this.onMove)
+        }
+        this.onUp = function onUp(event){
+            _this.mouseStatus = false;
+            _this.map.container.removeEventListener('mousemove',_this.onMove)
+        }
+        this.onMove = function onMove(event){
+            if(!_this.mouseStatus){
+                return;
+            }
+            if(_this.mouseStatus=='left'){
+                let yDis = event.clientY -  _this.mouseDownPosition.y;
+                let xDis = event.clientX -  _this.mouseDownPosition.x;
+                let distance = Math.sqrt(Math.pow(xDis,2) + Math.pow(yDis,2));
+                if(distance&lt;0.1)return false;
+                let rotation = (xDis>0?-1:1)*Math.asin(yDis/distance) +  _this.map.transform.angle; 
+                _this.map.center[0] +=  (xDis>0?-1:1)*_this.moveSpeed*(distance*Math.cos(rotation))/_this.map.transform.scale;
+                _this.map.center[1] +=  (xDis>0?-1:1)* _this.moveSpeed*(distance*Math.sin(rotation))/_this.map.transform.scale;
+                _this.cameraControl.updateMap();
+                /**
+                 * 地图移动
+                 * @event MapControl#move 
+                 * @property {Object} event
+                 */
+                _this.fire("move",event)//地图移动
+            
+            }else if(_this.mouseStatus=='right'){
+                _this.map.pitch += _this.pitchSpeed*(event.clientY - _this.mouseDownPosition.y);
+                if(_this.map.pitch>90){
+                    _this.map.pitch = 90;
+                }else if(_this.map.pitch&lt;0){
+                    _this.map.pitch = 0;
+                }
+                _this.map.rotation -= _this.rotateSpeed*(event.clientX - _this.mouseDownPosition.x);
+                _this.cameraControl.updateMap();
+                /**
+                 * 地图旋转
+                 * @event MapControl#rotate
+                 * @property {Object} event 
+                 */
+                _this.fire("rotate",event)//地图x旋转
+            }
+           
+            _this.mouseDownPosition = {
+                 x:event.clientX,
+                y:event.clientY
+            }
+            _this.fire("change",event)
+        }
+        this.onWheel = function onWheel(event){
+            _this.map.zoom -= event.deltaY/100;
+            _this.cameraControl.updateMap();
+            event.preventDefault();
+            /**
+             * 地图缩放
+             * @event MapControl#zoom
+             * @property {Object} event - 原生event对象
+             */
+            _this.fire("zoom",event)//地图缩放
+
+            /**
+             * 地图状态发生改变，发生操作时触发
+             * @event MapControl#change
+             * @property {Object} event - 原生event对象
+             */
+            _this.fire("change",event)
+        }
+        this.onContextmenu = function onContextmenu(e){
+            e.preventDefault();
+            e.stopPropagation();
+        }
+         this.map.container.addEventListener('mousedown',this.onDown)
+        this.map.container.addEventListener('mouseup',this.onUp)
+        this.map.container.addEventListener('mousemove',this.onMove)
+        this.map.container.addEventListener('wheel',this.onWheel)
+        this.map.container.addEventListener('contextmenu',this.onContextmenu)
+        
+    };
+
+    /**
+     * 移除所有监听事件
+     */
+    removeListenr(){
+        this.map.container.removeEventListener('mousedown',this.onDown)
+        this.map.container.removeEventListener('mouseup',this.onUp)
+        this.map.container.removeEventListener('mousemove',this.onMove)
+        this.map.container.removeEventListener('wheel',this.onWheel)
+        this.map.container.removeEventListener('contextmenu',this.onContextmenu)
+    }
+    
+}
+module.exports = MapControl;</pre>
+    </article>
+</section>
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+
+<footer>
+
+
+	<span class="copyright">
+	@mizy.mz
+	</span>
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+	
+		on 2017-12-07T16:36:50+08:00
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+<script>
+	$( function () {
+		$( '#main' ).localScroll( {
+			offset : { top : 60 } //offset by the height of your header (give or take a few px, see what works for you)
+		} );
+		$( "dt.name" ).each( function () {
+			var $this = $( this ).find("h4");
+			var icon = $( "<i/>" ).addClass( "icon-plus-sign" ).addClass( "pull-right" ).addClass( "icon-white" );
+			var dt = $(this);
+			var children = dt.next( "dd" );
+
+			dt.prepend( icon ).css( {cursor : "pointer"} );
+			dt.addClass( "member-collapsed" ).addClass( "member" );
+
+
+			children.hide();
+
+			dt.children().on( "click", function () {
+				children = dt.next( "dd" );
+				children.slideToggle( "fast", function () {
+
+					if ( children.is( ":visible" ) ) {
+						icon.addClass( "icon-minus-sign" ).removeClass( "icon-plus-sign" ).removeClass( "icon-white" );
+						dt.addClass( "member-open" ).animate( "member-collapsed" );
+					} else {
+						icon.addClass( "icon-plus-sign" ).removeClass( "icon-minus-sign" ).addClass( "icon-white" );
+						dt.addClass( "member-collapsed" ).removeClass( "member-open" );
+					}
+				} );
+			} );
+
+		} );
+	} );
+</script>
+
+
+<!--Google Analytics-->
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
+
+</body>
+</html>
