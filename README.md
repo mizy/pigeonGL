@@ -1,18 +1,36 @@
 # pigeon-gl 
-信鸽3d地图,基于
+3d map by three.js
+
+# features
+GPS & UTM coordinate 
 
 # demo
-ing...
+/examples/basec/basic.html
 
 # api
-详情见./doc
+```
+    var map = new PigeonGL.Map({
+        container:document.getElementById("map"),
+        center:[0,0],
+        width:window.innerWidth,
+        height:window.innerHeight,
+        pitch:0,
+        rotation:0,
+        zoom:21
+    })
 
-# 编译
+    //add models
+    map.addAtCoordinate(obj,[0,0])
+    
+```
+
+
+# build
 ```
 npm run build
 ```
 
-# 文档
+# doc
 ```
 npm run doc
 ```

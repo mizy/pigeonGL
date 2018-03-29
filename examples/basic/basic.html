@@ -48,40 +48,6 @@
 
     map.scene.background = new THREE.Color(0xf0ffff);
 
-    //添加坐标线
-    var material = new THREE.LineBasicMaterial({
-        color: 0xff0000
-    });
-    var lineGeometry = new THREE.Geometry();
-    lineGeometry.vertices.push(
-        new THREE.Vector3( 0, 0, 0 ),
-        new THREE.Vector3( 1, 0, 0 )
-    );
-    var line = new THREE.Line( lineGeometry, material );
-    map.world.add(line);
-
-    var material = new THREE.LineBasicMaterial({
-        color: 0x00ff00
-    });
-    var lineGeometry = new THREE.Geometry();
-    lineGeometry.vertices.push(
-        new THREE.Vector3( 0, 0, 0 ),
-        new THREE.Vector3( 0, 1, 0 )
-    );
-    var line = new THREE.Line( lineGeometry, material );
-     map.world.add(line);
-    
-    var material = new THREE.LineBasicMaterial({
-        color: 0x0000ff
-    });
-    var lineGeometry = new THREE.Geometry();
-    lineGeometry.vertices.push(
-        new THREE.Vector3( 0, 0, 0 ),
-        new THREE.Vector3( 0, 0, 1 )
-    );
-    var line = new THREE.Line( lineGeometry, material );
-     map.world.add(line);
-    
     var mapControl = new PigeonGL.MapControl();
     map.addLayer(mapControl);
        
