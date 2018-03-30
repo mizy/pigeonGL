@@ -9,7 +9,7 @@ GPS & UTM coordinate support
 UTM
 ![utm](https://img.alicdn.com/tfs/TB1r2xfhrSYBuNjSspiXXXNzpXa-1194-663.png)
 
-on mapbox 
+on mapbox
 ![mapbox](https://img.alicdn.com/tfs/TB13ftfhrSYBuNjSspiXXXNzpXa-767-592.png)
 
 # api
