@@ -2,10 +2,15 @@
 3d map by three.js
 
 # features
-GPS & UTM coordinate 
+GPS & UTM coordinate support
 
 # demo
 /examples/basec/basic.html
+UTM
+![](https://img.alicdn.com/tfs/TB1r2xfhrSYBuNjSspiXXXNzpXa-1194-663.png)
+
+on mapbox 
+![](https://img.alicdn.com/tfs/TB13ftfhrSYBuNjSspiXXXNzpXa-767-592.png)
 
 # api
 ```
