@@ -1,4 +1,4 @@
-# pigeon-gl 
+# [pigeon-gl](https://mizy.github.io/pigeonGL)
 3d map by three.js 
 used in auto-drive simulation systerm
 
@@ -6,9 +6,9 @@ used in auto-drive simulation systerm
 GPS & UTM coordinate support
 
 # demo
-[basic demo](https://mizy.github.io/examples/basic/basic.html)
+[basic demo](https://mizy.github.io/pigeonGL/examples/basic/basic.html)
 
-[utm](https://mizy.github.io/examples/basic/utm.html)
+[utm](https://mizy.github.io/pigeonGL/examples/basic/utm.html)
 
 UTM
 ![utm](https://img.alicdn.com/tfs/TB1r2xfhrSYBuNjSspiXXXNzpXa-1194-663.png)

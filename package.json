@@ -1,6 +1,6 @@
 {
   "name": "pigeon-gl",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "webgl pigeon map",
   "main": "index.js",
   "scripts": {
