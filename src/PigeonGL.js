@@ -16,21 +16,21 @@
  * @property {TextLayer} TextLayer - 文字图层
  */
 const PigeonGL = {
-    MTLLoader : require("./Loaders/MTLLoader.js"),
-    OBJLoader : require("./Loaders/OBJLoader.js"),
+	MTLLoader: require("./Loaders/MTLLoader.js"),
+	OBJLoader: require("./Loaders/OBJLoader.js"),
 
-    //core
-    Map:require("./Map.js"),
-    UTMMap:require("./UTMMap.js"),
-    Layer:require("./Layers/Layer.js"),
-    CameraControl:require("./Camera/CameraControl.js"),
+	//core
+	Map: require("./Map.js"),
+	UTMMap: require("./UTMMap.js"),
+	Layer: require("./Layers/Layer.js"),
+	CameraControl: require("./Camera/CameraControl.js"),
 
-    //layer
-    SymbolLayer3D:require("./Layers/SymbolLayer3D.js"),
-    ThirdPersonView:require("./Layers/ThirdPersonView.js"),
-    MapControl:require("./Layers/MapControl.js"),
-    TextLayer:require("./Layers/TextLayer.js"),
-    VRLayer:require("./Layers/VRLayer.js"),
-    CloudPoints:require("./Layers/CloudPoints.js")
+	//layer
+	SymbolLayer3D: require("./Layers/SymbolLayer3D.js"),
+	ThirdPersonView: require("./Layers/ThirdPersonView.js"),
+	MapControl: require("./Layers/MapControl.js"),
+	TextLayer: require("./Layers/TextLayer.js"),
+	VRLayer: require("./Layers/VRLayer.js"),
+	CloudPoints: require("./Layers/CloudPoints.js")
 }
 window.PigeonGL = PigeonGL;
