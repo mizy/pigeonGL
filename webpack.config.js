@@ -12,10 +12,10 @@ module.exports = {
 	},
 	devServer: {
 		port: 8881,
-		index: "index.html",
+		index: "dev.html",
 		open: true,
 		host: "0.0.0.0",
-		openPage: "./index.html",
+		openPage: "./dev.html",
 		hot: true,
 	},
 
