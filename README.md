@@ -5,17 +5,12 @@ used in auto-drive simulation systerm
 # features
 GPS & UTM coordinate support
 
-# demo
-[basic demo](https://mizy.github.io/pigeonGL/examples/basic/basic.html)
+# demo 
+[basic](https://mizy.github.io/pigeonGL/examples/basic/index.html)
 
-[utm](https://mizy.github.io/pigeonGL/examples/basic/utm.html)
-
-UTM
-![utm](https://img.alicdn.com/tfs/TB1r2xfhrSYBuNjSspiXXXNzpXa-1194-663.png)
-
-on mapbox
-![mapbox](https://img.alicdn.com/tfs/TB13ftfhrSYBuNjSspiXXXNzpXa-767-592.png)
-
+basic
+![basic](https://mizy.github.io/pigeonGL/snapshot-basic.png)
+ 
 # api
 [documention](https://mizy.github.io/pigeonGL/doc/)
 ```

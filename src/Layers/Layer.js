@@ -5,6 +5,7 @@
  */
 class Layer {
 
+	layers = []
     /**
      * Layer类的构造函数，会把所有用户参数挂到layer对象上
      * @param {object} config - 用户构造函数配置
@@ -97,5 +98,39 @@ class Layer {
 			this._listeners = []
 		}
 	}
+
+	/**
+	 * 添加图层
+	 * @param {Layer} layer - 图层
+	 */
+	addLayer(layer) {
+		layer.id = ++this._layerid;
+		this.layers.push(layer);
+		layer.onAdd(this); //初始化layer
+	}
+
+	/**
+	 * 删除图层
+	 * @param {Layer} layer - 图层
+	 */
+	removeLayer(layer) {
+		for (let x in this.layers) {
+			if (this.layers[x].id == layer.id) {
+				this.layers[x].onRemove();
+				this.layers.splice(x, 1);
+				return;
+			}
+		}
+	}
+
+	/**
+	 * 获取图层通过id
+	 */
+	getLayerById(id) {
+		for (let i = 0; i < this.layers.length; i++) {
+			if (this.layer.id === id) return layer;
+		}
+	}
+
 }
 export default Layer;

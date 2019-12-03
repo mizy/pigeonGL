@@ -20,17 +20,15 @@ const PigeonGL = {
 	OBJLoader: require("./Loaders/OBJLoader.js"),
 
 	//core
-	Map: require("./Map.js"),
-	UTMMap: require("./UTMMap.js"),
-	Layer: require("./Layers/Layer.js"),
-	CameraControl: require("./Camera/CameraControl.js"),
+	Map: require("./Map.js").default,
+	Layer: require("./Layers/Layer.js").default,
+	CameraControl: require("./Camera/CameraControl.js").default,
 
 	//layer
-	SymbolLayer3D: require("./Layers/SymbolLayer3D.js"),
-	ThirdPersonView: require("./Layers/ThirdPersonView.js"),
-	MapControl: require("./Layers/MapControl.js"),
-	TextLayer: require("./Layers/TextLayer.js"),
-	VRLayer: require("./Layers/VRLayer.js"),
-	CloudPoints: require("./Layers/CloudPoints.js")
+	ThirdPersonView: require("./Layers/ThirdPersonView.js").default,
+	MapControl: require("./Layers/MapControl.js").default,
+	TextLayer: require("./Layers/TextLayer.js").default,
+	VRLayer: require("./Layers/VRLayer.js").default,
+	CloudPoints: require("./Layers/CloudPoints.js").default
 }
 window.PigeonGL = PigeonGL;

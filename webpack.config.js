@@ -10,9 +10,15 @@ module.exports = {
 		path: path.resolve(__dirname, 'build'),
 		filename: '[name].js'
 	},
-	resolve: {
-		// extensions: ['.js']
+	devServer: {
+		port: 8881,
+		index: "index.html",
+		open: true,
+		host: "0.0.0.0",
+		openPage: "./index.html",
+		hot: true,
 	},
+
 	module: {
 		rules: [
 			{
@@ -22,7 +28,7 @@ module.exports = {
 					{
 						loader: "babel-loader",
 						options: {
-							presets: [["@babel/preset-env"], "@babel/preset-react"],
+							presets: ["@babel/preset-env"],
 							plugins: [
 								["@babel/plugin-proposal-decorators", { legacy: true }],
 								["@babel/plugin-proposal-class-properties", { loose: true }],
@@ -35,8 +41,7 @@ module.exports = {
 			},
 		]
 	},
-	// devtool: 'inline-source-map',
+	devtool: 'inline-source-map',
 	plugins: [
-		// uglifyJsPlugin
 	]
 };

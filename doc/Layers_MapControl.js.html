@@ -33,7 +33,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Map.html">Map</a></li><li><a href="CameraControl.html">CameraControl</a></li><li><a href="Layer.html">Layer</a></li><li><a href="MapControl.html">MapControl</a></li><li><a href="TextLayer.html">TextLayer</a></li><li><a href="ThirdPersonLayer.html">ThirdPersonLayer</a></li><li><a href="MTLLoader.html">MTLLoader</a></li><li><a href="OBJLoader.html">OBJLoader</a></li>
+					<li><a href="CameraControl.html">CameraControl</a></li><li><a href="Layer.html">Layer</a></li><li><a href="MapControl.html">MapControl</a></li><li><a href="TextLayer.html">TextLayer</a></li><li><a href="ThirdPersonLayer.html">ThirdPersonLayer</a></li><li><a href="MTLLoader.html">MTLLoader</a></li><li><a href="OBJLoader.html">OBJLoader</a></li><li><a href="Map.html">Map</a></li>
 				</ul>
 			</li>
 			
@@ -47,7 +47,7 @@
 			<li class="dropdown">
 				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="global.html#PigeonGL">PigeonGL</a></li>
+					<li><a href="global.html#getVRDisplays">getVRDisplays</a></li><li><a href="global.html#listenEvents">listenEvents</a></li><li><a href="global.html#enterVR">enterVR</a></li><li><a href="global.html#exitVR">exitVR</a></li><li><a href="global.html#createButton">createButton</a></li><li><a href="global.html#PigeonGL">PigeonGL</a></li>
 				</ul>
 			</li>
 			
@@ -91,157 +91,159 @@
  * @class
  * @extends Layer
  */
-class MapControl extends Layer{
-    
-   defaultParams={
-        moveSpeed:1,
-        pitchSpeed:0.1,
-        rotateSpeed:0.15
-   }
+class MapControl extends Layer {
 
-   /**
-    * 构造函数
-    * @param {Object} config - config
-    * @param {number} config.moveSpeed - 移动速度
-    * @param {number} config.pitchSpeed - 角度改变速度
-    * @param {number} config.rotateSpeed - 旋转速度
-    */
-    constructor(config){
-       super(config);
-       for(var x in this.defaultParams){
-           if(!this[x]){
-               this[x] = this.defaultParams[x];
-           }
-       }
-    }
+	defaultParams = {
+		zoomBase: 600,
+		moveSpeed: 1,
+		pitchSpeed: 0.1,
+		rotateSpeed: 0.15,
+	}
 
-    onAdd(map){
-        var _this = this;
-       this.pigeonMap = map;
-       this.map = this.pigeonMap.map;//用户配置或真实地图
-       this.cameraControl = this.pigeonMap.cameraControl;
-       this.initConfig();
-       this.listenEvents();
-       //添加相机更新函数
-       this.on("change",function(){
-           _this.pigeonMap.fire("change")
-           _this.cameraControl.updateMap();//更新用户参数为相机参数
-       })
-    }
+	/**
+	 * 构造函数
+	 * @param {Object} config - config
+	 * @param {number} config.moveSpeed - 移动速度
+	 * @param {number} config.pitchSpeed - 角度改变速度
+	 * @param {number} config.rotateSpeed - 旋转速度
+	 */
+	constructor(config) {
+		super(config);
+		for (var x in this.defaultParams) {
+			if (typeof (this[x]) == "undefined") {
+				this[x] = this.defaultParams[x];
+			}
+		}
+	}
 
-    initConfig(){
-       
-        var transform = {};
-    };
+	onAdd(map) {
+		var _this = this;
+		this.pigeonMap = map;
+		this.map = this.pigeonMap.map;//用户配置或真实地图
+		this.cameraControl = this.pigeonMap.cameraControl;
+		this.initConfig();
+		this.listenEvents();
+		//添加相机更新函数
+		this.on("change", function () {
+			_this.pigeonMap.fire("change")
+			_this.cameraControl.update();//更新用户参数为相机参数
+		})
+	}
+
+	initConfig() {
+
+	};
 
     /**
      * 监听事件
      */
-    listenEvents(){
-        var _this = this;
-        var container = this.map.container;
-        this.onDown = function onDown(event){
-            if(event.button==0){//左键
-                _this.mouseStatus = 'left'
-            }else if(event.button==2){//右键
-                _this.mouseStatus = 'right'
-            }
-            _this.mouseDownPosition = {
-                x:event.clientX,
-                y:event.clientY
-            }
-            _this.map.container.addEventListener('mousemove',_this.onMove)
-        }
-        this.onUp = function onUp(event){
-            _this.mouseStatus = false;
-            _this.map.container.removeEventListener('mousemove',_this.onMove)
-        }
-        this.onMove = function onMove(event){
-            if(!_this.mouseStatus){
-                return;
-            }
-            if(_this.mouseStatus=='left'){
-                let yDis = event.clientY -  _this.mouseDownPosition.y;
-                let xDis = event.clientX -  _this.mouseDownPosition.x;
-                let distance = Math.sqrt(Math.pow(xDis,2) + Math.pow(yDis,2));
-                if(distance&lt;0.1)return false;
-                let rotation = (xDis>0?-1:1)*Math.asin(yDis/distance) +  _this.map.transform.angle; 
-                _this.map.center[0] +=  (xDis>0?-1:1)*_this.moveSpeed*(distance*Math.cos(rotation))/_this.map.transform.scale;
-                _this.map.center[1] +=  (xDis>0?-1:1)* _this.moveSpeed*(distance*Math.sin(rotation))/_this.map.transform.scale;
-                _this.cameraControl.updateMap();
+	listenEvents() {
+		this.onDown = (event) => {
+			if (event.button == 0) {//左键
+				this.mouseStatus = 'left'
+			} else if (event.button == 2) {//右键
+				this.mouseStatus = 'right'
+			}
+			this.mouseDownPosition = {
+				x: event.clientX,
+				y: event.clientY
+			}
+			this.map.container.addEventListener('mousemove', this.onMove)
+		}
+		this.onUp = (event) => {
+			this.mouseStatus = false;
+			this.map.container.removeEventListener('mousemove', this.onMove)
+		}
+		this.onMove = (event) => {
+			if (!this.mouseStatus) {
+				return;
+			}
+			if (this.mouseStatus == 'left') {
+				let yDis = event.clientY - this.mouseDownPosition.y;
+				let xDis = event.clientX - this.mouseDownPosition.x;
+				let distance = Math.sqrt(Math.pow(xDis, 2) + Math.pow(yDis, 2));
+				if (distance &lt; 0.1) return false;
+				let rotation = (xDis > 0 ? -1 : 1) * Math.asin(yDis / distance) + this.map.transform.angle;
+				let ratio = this.moveSpeed * (this.map.zoom / (this.zoomBase + this.map.zoom));
+				this.map.center[0] += (xDis > 0 ? -1 : 1) * (distance * Math.cos(rotation)) * ratio;
+				this.map.center[1] += (xDis > 0 ? -1 : 1) * (distance * Math.sin(rotation)) * ratio;
+				this.cameraControl.update();
                 /**
                  * 地图移动
                  * @event MapControl#move 
                  * @property {Object} event
                  */
-                _this.fire("move",event)//地图移动
-            
-            }else if(_this.mouseStatus=='right'){
-                _this.map.pitch += _this.pitchSpeed*(event.clientY - _this.mouseDownPosition.y);
-                if(_this.map.pitch>90){
-                    _this.map.pitch = 90;
-                }else if(_this.map.pitch&lt;0){
-                    _this.map.pitch = 0;
-                }
-                _this.map.rotation -= _this.rotateSpeed*(event.clientX - _this.mouseDownPosition.x);
-                _this.cameraControl.updateMap();
+				this.fire("move", event)//地图移动
+				this.fire("change", event)
+
+			} else if (this.mouseStatus == 'right') {
+				this.map.pitch += this.pitchSpeed * (event.clientY - this.mouseDownPosition.y);
+				if (this.map.pitch > 90) {
+					this.map.pitch = 90;
+				} else if (this.map.pitch &lt; 0) {
+					this.map.pitch = 0;
+				}
+				this.map.rotation -= this.rotateSpeed * (event.clientX - this.mouseDownPosition.x);
+				this.cameraControl.update();
                 /**
                  * 地图旋转
                  * @event MapControl#rotate
                  * @property {Object} event 
                  */
-                _this.fire("rotate",event)//地图x旋转
-            }
-           
-            _this.mouseDownPosition = {
-                 x:event.clientX,
-                y:event.clientY
-            }
-            _this.fire("change",event)
-        }
-        this.onWheel = function onWheel(event){
-            _this.map.zoom -= event.deltaY/100;
-            _this.cameraControl.updateMap();
-            event.preventDefault();
+				this.fire("rotate", event)//地图x旋转
+				this.fire("change", event)
+
+			}
+
+			this.mouseDownPosition = {
+				x: event.clientX,
+				y: event.clientY
+			}
+		}
+		this.onWheel = (event) => {
+			this.map.zoom -= event.deltaY * this.map.zoom / this.zoomBase;
+			if (this.map.zoom &lt; 5) return this.map.zoom = 5;
+			this.cameraControl.update();
+			event.preventDefault();
             /**
              * 地图缩放
              * @event MapControl#zoom
              * @property {Object} event - 原生event对象
              */
-            _this.fire("zoom",event)//地图缩放
+			this.fire("zoom", event)//地图缩放
 
             /**
              * 地图状态发生改变，发生操作时触发
              * @event MapControl#change
              * @property {Object} event - 原生event对象
              */
-            _this.fire("change",event)
-        }
-        this.onContextmenu = function onContextmenu(e){
-            e.preventDefault();
-            e.stopPropagation();
-        }
-         this.map.container.addEventListener('mousedown',this.onDown)
-        this.map.container.addEventListener('mouseup',this.onUp)
-        this.map.container.addEventListener('mousemove',this.onMove)
-        this.map.container.addEventListener('wheel',this.onWheel)
-        this.map.container.addEventListener('contextmenu',this.onContextmenu)
-        
-    };
+			this.fire("change", event)
+		}
+		this.onContextmenu = function onContextmenu(e) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+		this.map.container.addEventListener('mousedown', this.onDown)
+		this.map.container.addEventListener('mouseup', this.onUp)
+		this.map.container.addEventListener('mousemove', this.onMove)
+		this.map.container.addEventListener('wheel', this.onWheel)
+		this.map.container.addEventListener('contextmenu', this.onContextmenu)
+
+	};
 
     /**
      * 移除所有监听事件
      */
-    removeListenr(){
-        this.map.container.removeEventListener('mousedown',this.onDown)
-        this.map.container.removeEventListener('mouseup',this.onUp)
-        this.map.container.removeEventListener('mousemove',this.onMove)
-        this.map.container.removeEventListener('wheel',this.onWheel)
-        this.map.container.removeEventListener('contextmenu',this.onContextmenu)
-    }
-    
+	removeListenr() {
+		this.map.container.removeEventListener('mousedown', this.onDown)
+		this.map.container.removeEventListener('mouseup', this.onUp)
+		this.map.container.removeEventListener('mousemove', this.onMove)
+		this.map.container.removeEventListener('wheel', this.onWheel)
+		this.map.container.removeEventListener('contextmenu', this.onContextmenu)
+	}
+
 }
-module.exports = MapControl;</pre>
+export default MapControl;</pre>
     </article>
 </section>
 
@@ -284,9 +286,9 @@ module.exports = MapControl;</pre>
 	</span>
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
 	
-		on 2017-12-07T16:36:50+08:00
+		on 2019-12-03T15:52:13+08:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

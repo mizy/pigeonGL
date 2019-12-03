@@ -33,7 +33,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Map.html">Map</a></li><li><a href="CameraControl.html">CameraControl</a></li><li><a href="Layer.html">Layer</a></li><li><a href="MapControl.html">MapControl</a></li><li><a href="TextLayer.html">TextLayer</a></li><li><a href="ThirdPersonLayer.html">ThirdPersonLayer</a></li><li><a href="MTLLoader.html">MTLLoader</a></li><li><a href="OBJLoader.html">OBJLoader</a></li>
+					<li><a href="CameraControl.html">CameraControl</a></li><li><a href="Layer.html">Layer</a></li><li><a href="MapControl.html">MapControl</a></li><li><a href="TextLayer.html">TextLayer</a></li><li><a href="ThirdPersonLayer.html">ThirdPersonLayer</a></li><li><a href="MTLLoader.html">MTLLoader</a></li><li><a href="OBJLoader.html">OBJLoader</a></li><li><a href="Map.html">Map</a></li>
 				</ul>
 			</li>
 			
@@ -47,7 +47,7 @@
 			<li class="dropdown">
 				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="global.html#PigeonGL">PigeonGL</a></li>
+					<li><a href="global.html#getVRDisplays">getVRDisplays</a></li><li><a href="global.html#listenEvents">listenEvents</a></li><li><a href="global.html#enterVR">enterVR</a></li><li><a href="global.html#exitVR">exitVR</a></li><li><a href="global.html#createButton">createButton</a></li><li><a href="global.html#PigeonGL">PigeonGL</a></li>
 				</ul>
 			</li>
 			
@@ -88,6 +88,8 @@
         CameraControl
         </h2>
         
+            <div class="class-description"><p>相机控制类</p></div>
+        
     
 </header>
 
@@ -104,10 +106,6 @@
 </dt>
 <dd>
 
-    
-    <div class="description">
-        <p>相机控制类</p>
-    </div>
     
 
     
@@ -251,7 +249,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="Camera_CameraControl.js.html">Camera/CameraControl.js</a>,
-				 <a href="Camera_CameraControl.js.html#sunlight-1-line-11">line 11</a>
+				 <a href="Camera_CameraControl.js.html#sunlight-1-line-12">line 12</a>
 			</li>
 		</ul>
 	</dd>
@@ -299,6 +297,94 @@
         <h3 class="subsection-title">Methods</h3>
 
         <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id="update"><span class="type-signature"></span>update()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>更新地图参数，当this.map的参数发生变化时，需要执行该函数同步变化</p>
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
+	<dd class="tag-source">
+		<ul class="dummy">
+			<li>
+				<a href="Camera_CameraControl.js.html">Camera/CameraControl.js</a>,
+				 <a href="Camera_CameraControl.js.html#sunlight-1-line-26">line 26</a>
+			</li>
+		</ul>
+	</dd>
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
             
 <hr>
 <dt>
@@ -357,7 +443,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="Camera_CameraControl.js.html">Camera/CameraControl.js</a>,
-				 <a href="Camera_CameraControl.js.html#sunlight-1-line-47">line 47</a>
+				 <a href="Camera_CameraControl.js.html#sunlight-1-line-35">line 35</a>
 			</li>
 		</ul>
 	</dd>
@@ -445,7 +531,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="Camera_CameraControl.js.html">Camera/CameraControl.js</a>,
-				 <a href="Camera_CameraControl.js.html#sunlight-1-line-64">line 64</a>
+				 <a href="Camera_CameraControl.js.html#sunlight-1-line-43">line 43</a>
 			</li>
 		</ul>
 	</dd>
@@ -478,271 +564,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="lngX"><span class="type-signature"></span>lngX()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>计算地图中心的x值</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="Camera_CameraControl.js.html">Camera/CameraControl.js</a>,
-				 <a href="Camera_CameraControl.js.html#sunlight-1-line-80">line 80</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="latY"><span class="type-signature"></span>latY()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>计算地图中心的y值</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="Camera_CameraControl.js.html">Camera/CameraControl.js</a>,
-				 <a href="Camera_CameraControl.js.html#sunlight-1-line-86">line 86</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getWorldSize"><span class="type-signature"></span>getWorldSize()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>获取地图应该被放大到的尺寸</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="Camera_CameraControl.js.html">Camera/CameraControl.js</a>,
-				 <a href="Camera_CameraControl.js.html#sunlight-1-line-94">line 94</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="getScale"><span class="type-signature"></span>getScale(zoom)</h4>
+    <h4 class="name" id="getZ"><span class="type-signature"></span>getZ(zoom)</h4>
     
     
 </dt>
@@ -847,7 +669,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="Camera_CameraControl.js.html">Camera/CameraControl.js</a>,
-				 <a href="Camera_CameraControl.js.html#sunlight-1-line-102">line 102</a>
+				 <a href="Camera_CameraControl.js.html#sunlight-1-line-61">line 61</a>
 			</li>
 		</ul>
 	</dd>
@@ -985,7 +807,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="Camera_CameraControl.js.html">Camera/CameraControl.js</a>,
-				 <a href="Camera_CameraControl.js.html#sunlight-1-line-110">line 110</a>
+				 <a href="Camera_CameraControl.js.html#sunlight-1-line-69">line 69</a>
 			</li>
 		</ul>
 	</dd>
@@ -1123,7 +945,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="Camera_CameraControl.js.html">Camera/CameraControl.js</a>,
-				 <a href="Camera_CameraControl.js.html#sunlight-1-line-126">line 126</a>
+				 <a href="Camera_CameraControl.js.html#sunlight-1-line-78">line 78</a>
 			</li>
 		</ul>
 	</dd>
@@ -1261,7 +1083,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="Camera_CameraControl.js.html">Camera/CameraControl.js</a>,
-				 <a href="Camera_CameraControl.js.html#sunlight-1-line-142">line 142</a>
+				 <a href="Camera_CameraControl.js.html#sunlight-1-line-87">line 87</a>
 			</li>
 		</ul>
 	</dd>
@@ -1349,95 +1171,7 @@
 		<ul class="dummy">
 			<li>
 				<a href="Camera_CameraControl.js.html">Camera/CameraControl.js</a>,
-				 <a href="Camera_CameraControl.js.html#sunlight-1-line-158">line 158</a>
-			</li>
-		</ul>
-	</dd>
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="updateMap"><span class="type-signature"></span>updateMap()</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        <p>更新地图参数，当this.map的参数发生变化时，需要执行该函数同步变化</p>
-    </div>
-    
-
-    
-
-    
-
-    
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-	<dt class="tag-source method-doc-label method-doc-details-label">Source:</dt>
-	<dd class="tag-source">
-		<ul class="dummy">
-			<li>
-				<a href="Camera_CameraControl.js.html">Camera/CameraControl.js</a>,
-				 <a href="Camera_CameraControl.js.html#sunlight-1-line-31">line 31</a>
+				 <a href="Camera_CameraControl.js.html#sunlight-1-line-95">line 95</a>
 			</li>
 		</ul>
 	</dd>
@@ -1518,9 +1252,9 @@
 	</span>
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
 	
-		on 2017-12-07T16:36:50+08:00
+		on 2019-12-03T15:52:13+08:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

@@ -33,7 +33,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Map.html">Map</a></li><li><a href="CameraControl.html">CameraControl</a></li><li><a href="Layer.html">Layer</a></li><li><a href="MapControl.html">MapControl</a></li><li><a href="TextLayer.html">TextLayer</a></li><li><a href="ThirdPersonLayer.html">ThirdPersonLayer</a></li><li><a href="MTLLoader.html">MTLLoader</a></li><li><a href="OBJLoader.html">OBJLoader</a></li>
+					<li><a href="CameraControl.html">CameraControl</a></li><li><a href="Layer.html">Layer</a></li><li><a href="MapControl.html">MapControl</a></li><li><a href="TextLayer.html">TextLayer</a></li><li><a href="ThirdPersonLayer.html">ThirdPersonLayer</a></li><li><a href="MTLLoader.html">MTLLoader</a></li><li><a href="OBJLoader.html">OBJLoader</a></li><li><a href="Map.html">Map</a></li>
 				</ul>
 			</li>
 			
@@ -47,7 +47,7 @@
 			<li class="dropdown">
 				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="global.html#PigeonGL">PigeonGL</a></li>
+					<li><a href="global.html#getVRDisplays">getVRDisplays</a></li><li><a href="global.html#listenEvents">listenEvents</a></li><li><a href="global.html#enterVR">enterVR</a></li><li><a href="global.html#exitVR">exitVR</a></li><li><a href="global.html#createButton">createButton</a></li><li><a href="global.html#PigeonGL">PigeonGL</a></li>
 				</ul>
 			</li>
 			
@@ -84,9 +84,8 @@
 <section>
     <article>
         <pre
-            class="sunlight-highlight-javascript linenums">var utils = require("../Utils/Utils.js");
-var PigeonGLConstants = require("../constants.js");
-
+            class="sunlight-highlight-javascript linenums">let PigeonGLConstants = require("../constants.js");
+let utils = require("../Utils/Utils.js");
 /**
  * 相机控制类
  * @class
@@ -94,214 +93,139 @@ var PigeonGLConstants = require("../constants.js");
  * @param {object} camera - 相机对象
  * @param {object} world - 世界对象
  */
-function CameraControl(map, camera, world) {
-    
-    this.map = map;
-    this.camera = camera;
-    this.active = true;
-    this.camera.matrixAutoUpdate = false;   // We're in charge of the camera now!
-    // Postion and configure the world group so we can scale it appropriately when the camera zooms
-    this.world = world || new THREE.Group();
-    this.world.position.x = this.world.position.y = PigeonGLConstants.WORLD_SIZE/2
-    this.world.matrixAutoUpdate = false;
 
-    // Listen for move events from the map and update the Three.js camera
-    var _this = this;
-    this.listenMapChange();
+class CameraControl {
+	constructor(map) {
+		this.scope = map;
+		this.map = map.map;
+		this.camera = map.camera;
+		this.active = true;
+		this.world = map.world || new THREE.Group();
+		this.world.position.x = this.world.position.y = 0;
+		this.camera.matrixAutoUpdate = false;
+
+		this.update();
+	}
+	/**
+	* 更新地图参数，当this.map的参数发生变化时，需要执行该函数同步变化
+	*/
+	update(map) {
+		this.map = Object.assign(this.map, map);
+		this.initMapTransform();
+		this.updateCamera();
+	}
+
+	/**
+	 * 监听地图瓦片层的变化，并同步执行updateCamera()同步相机
+	 */
+	listenMapChange() {
+		//更新地图对象
+		this.update(this.map);
+	}
+
+	/**
+	 * 重新初始化没有地图瓦片层时的位置参数
+	 */
+	initMapTransform() {
+		let transform = {};
+		transform.width = this.map.width;
+		transform.height = this.map.height;
+		transform.zHeight = this.map.zHeight || 0; //z轴凸起高度
+		transform.x = this.map.center[0];
+		transform.y = this.map.center[1];
+		transform.z = this.map.center[2] || this.getZ(this.map.zoom);
+		transform._pitch = (this.map.pitch * Math.PI) / 180 || 0;
+		transform.angle = (this.map.rotation * Math.PI) / 180 || 0;
+		this.map.transform = transform;
+	}
+
+
+	/**
+	 * 获取地图放大倍数
+	 * @param {number} zoom - 地图zoom
+	 */
+	getZ(zoom) {
+		return zoom
+	}
+
+	/**
+	 * 设置地图中心
+	 * @param {Array} center - [lng,lat]
+	 */
+	setCenter(center) {
+		this.map.center = center;
+		this.initMapTransform();
+	}
+
+	/**
+	 * 设置旋转角度
+	 * @param {number} deg - 旋转的角度（！不是弧度）
+	 */
+	setRotation(rad) {
+		this.map.rotation = rad;
+		this.map.transform.angle = (this.map.rotation * Math.PI) / 180;
+	}
+
+	/**
+	 * 设置旋转的俯角
+	 * @param {number} deg - 俯视的角度
+	 */
+	setPitch(rad) {
+		this.map.pitch = rad;
+		this.map.transform._pitch = (this.map.pitch * Math.PI) / 180;
+	}
+
+	/**
+	 * 更新相机位置，当map位置信息变化时执行
+	 */
+	updateCamera(ev) {
+		let height = Math.abs(this.map.transform.z) + this.map.transform.zHeight;
+
+		const fov = this.map.fov || 0.6435011087932844; //*2/Math.pow(this.map.zoom,2);
+		let cameraToCenterDistance = height;
+		const halfFov = fov / 2;
+		const groundAngle = Math.PI / 2 + this.map.transform._pitch;
+		const topHalfSurfaceDistance =
+			(Math.sin(halfFov) * cameraToCenterDistance) /
+			Math.sin(Math.PI - groundAngle - halfFov);
+
+		const furthestDistance =
+			Math.cos(Math.PI / 2 - this.map.transform._pitch) * topHalfSurfaceDistance +
+			cameraToCenterDistance;
+
+		const farZ = furthestDistance * 1.01;
+
+		this.camera.projectionMatrix = utils.makePerspectiveMatrix(
+			fov,
+			this.map.transform.width / this.map.transform.height,
+			1,
+			farZ
+		);
+
+		let cameraWorldMatrix = new THREE.Matrix4();
+		let cameraTranslateZ = new THREE.Matrix4().makeTranslation(0, 0, height);
+		let cameraRotateX = new THREE.Matrix4().makeRotationX(this.map.transform._pitch);
+		let cameraRotateZ = new THREE.Matrix4().makeRotationZ(this.map.transform.angle);
+
+		cameraWorldMatrix
+			.premultiply(cameraTranslateZ)
+			.premultiply(cameraRotateX)
+			.premultiply(cameraRotateZ);
+		this.camera.matrixWorld.copy(cameraWorldMatrix);
+
+		// this.camera.position.z = height;
+		// this.camera.rotation.x = (this.map.transform._pitch);
+		// this.camera.rotation.z = (this.map.transform.angle);
+		// this.camera.rotateOnWorldAxis(new THREE.Vector3(1,0,0),this.map.transform._pitch);
+		// this.camera.rotateOnWorldAxis ( new THREE.Vector3(0,0,1), this.map.transform.angle )
+		//把整个地图挪到原点
+		this.world.position.x = -this.map.transform.x;
+		this.world.position.y = -this.map.transform.y;
+	}
 }
 
-CameraControl.prototype = {
-    /**
-     * 更新地图参数，当this.map的参数发生变化时，需要执行该函数同步变化
-     */
-    updateMap(map){
-        this.map = Object.assign(this.map,map);
-        var _this = this;
-        if(this.map.MAP_TYPE=='mapbox'){
-            this.updateCamera();
-        }else if(this.map.MAP_TYPE=='amap'){
-            this.updateCamera();
-        }else if(this.map.MAP_TYPE=='none'){
-            _this.initMapTransform();
-            _this.updateCamera();
-        }
-    },
-
-    /**
-     * 监听地图瓦片层的变化，并同步执行updateCamera()同步相机
-     */
-    listenMapChange(){
-        var _this = this;
-        //更新地图对象
-        this.updateMap(this.map);
-        //监听事件
-        if(this.map.MAP_TYPE=='mapbox'){
-            this.map.on('move', function() { _this.updateCamera(); });
-        }else if(this.map.MAP_TYPE=='amap'){
-            this.map.on('move', function() { _this.updateCamera(); });
-        }else if(this.map.MAP_TYPE=='none'){
-            //无事件操作
-        }
-    },
-
-    /**
-     * 重新初始化没有地图瓦片层时的位置参数
-     */
-    initMapTransform(){
-        var transform = {};
-        var config = this.map;
-        transform.width = this.map.width;
-        transform.height = this.map.height;
-        transform.x = this.lngX(this.map.center[0],this.map.zoom);
-        transform.y = this.latY(this.map.center[1],this.map.zoom);
-        transform.scale = this.getScale(this.map.zoom);
-        transform._pitch = (this.map.pitch*Math.PI/180)||0;
-        transform.angle = (this.map.rotation*Math.PI/180)||0;
-        this.map.transform = transform;
-    },
-    
-    /**
-     * 计算地图中心的x值
-     */
-    lngX(lng,zoom) {
-        return (180 + lng) * this.getWorldSize(zoom)/ 360;
-    },
-     /**
-     * 计算地图中心的y值
-     */
-    latY(lat,zoom) {
-        const y = 180 / Math.PI * Math.log(Math.tan(Math.PI / 4 + lat * Math.PI / 360));
-        return (180 - y) * this.getWorldSize(zoom) / 360;
-    },
-    
-    /**
-     * 获取地图应该被放大到的尺寸
-     */
-    getWorldSize(zoom){
-        return PigeonGLConstants.WORLD_SIZE * this.getScale(zoom);
-    },
-
-    /**
-     * 获取地图放大倍数
-     * @param {number} zoom - 地图zoom
-     */
-    getScale(zoom){
-        return Math.pow(2,zoom||1);
-    },
-
-    /**
-     * 设置地图中心
-     * @param {Array} center - [lng,lat]
-     */
-    setCenter(center){
-         var _this = this;
-        if(this.map.MAP_TYPE=='mapbox'){
-            this.map.setCenter(center)
-        }else if(this.map.MAP_TYPE=='amap'){
-           this.map.setCenter(center)
-        }else if(this.map.MAP_TYPE=='none'){
-            this.map.center = center;
-            _this.initMapTransform();
-        }
-    },
-
-    /**
-     * 设置旋转角度
-     * @param {number} deg - 旋转的角度（！不是弧度）
-     */
-    setRotation(rad){
-        var _this = this;
-        this.map.rotation = rad;
-        if(this.map.MAP_TYPE=='mapbox'){
-            this.map.setRotation(center)
-        }else if(this.map.MAP_TYPE=='amap'){
-           this.map.setRotation(center)
-        }else if(this.map.MAP_TYPE=='none'){
-            this.map.transform.angle = this.map.rotation*Math.PI/180;
-        }
-    },
-
-    /**
-     * 设置旋转的俯角
-     * @param {number} deg - 俯视的角度
-     */
-    setPitch(rad){
-        var _this = this;
-        this.map.pitch = rad;
-        this.map.rotation = rad;
-        if(this.map.MAP_TYPE=='mapbox'){
-            this.map.setPitch(rad)
-        }else if(this.map.MAP_TYPE=='amap'){
-           this.map.setPitch(rad)
-        }else if(this.map.MAP_TYPE=='none'){
-            this.map.transform._pitch = this.map.pitch*Math.PI/180;
-        }
-    },
-  
-    /**
-     * 更新相机位置，当map位置信息变化时执行
-     */
-    updateCamera: function(ev) {
-        if(!this.camera) {
-            console.log('nocamera')
-            return;
-        }
-        // Build a projection matrix, paralleling the code found in Mapbox GL JS
-        const fov = this.map.fov||0.6435011087932844;//*2/Math.pow(this.map.zoom,2);
-        var cameraToCenterDistance = 0.5 / Math.tan(fov / 2) * this.map.transform.height;
-        const halfFov = fov / 2;
-        const groundAngle = Math.PI / 2 + this.map.transform._pitch;
-        const topHalfSurfaceDistance = Math.sin(halfFov) * cameraToCenterDistance / Math.sin(Math.PI - groundAngle - halfFov);
-
-        // Calculate z distance of the farthest fragment that should be rendered.
-        const furthestDistance = Math.cos(Math.PI / 2 - this.map.transform._pitch) * topHalfSurfaceDistance + cameraToCenterDistance;
-
-        // Add a bit extra to avoid precision problems when a fragment's distance is exactly `furthestDistance`
-        const farZ = furthestDistance * 1.01;
-
-        this.camera.projectionMatrix = utils.makePerspectiveMatrix(fov, this.map.transform.width / this.map.transform.height, 1, farZ);
-        
-        var cameraWorldMatrix = new THREE.Matrix4();
-        var cameraTranslateZ = new THREE.Matrix4().makeTranslation(0,0,cameraToCenterDistance);
-        var cameraRotateX = new THREE.Matrix4().makeRotationX(this.map.transform._pitch);
-        var cameraRotateZ = new THREE.Matrix4().makeRotationZ(this.map.transform.angle);
-
-        // Unlike the Mapbox GL JS camera, separate camera translation and rotation out into its world matrix
-        // If this is applied directly to the projection matrix, it will work OK but break raycasting
-        cameraWorldMatrix
-            .premultiply(cameraTranslateZ)
-            .premultiply(cameraRotateX)
-            .premultiply(cameraRotateZ)
-            ;            
-
-        this.camera.matrixWorld.copy(cameraWorldMatrix);
-
-
-        var zoomPow =  this.map.transform.scale; 
-        // Handle scaling and translation of objects in the map in the world's matrix transform, not the camera
-        var scale = new THREE.Matrix4;
-        var translateCenter = new THREE.Matrix4;
-        var translateMap = new THREE.Matrix4;
-        var rotateMap = new THREE.Matrix4;
-
-        scale.makeScale(zoomPow, zoomPow , zoomPow );
-        translateCenter.makeTranslation(PigeonGLConstants.WORLD_SIZE/2, -PigeonGLConstants.WORLD_SIZE / 2, 0);
-        translateMap.makeTranslation(-this.map.transform.x, this.map.transform.y , 0);
-        rotateMap.makeRotationZ(Math.PI);
-        this.world.matrix = new THREE.Matrix4;
-        this.world.matrix
-            .premultiply(rotateMap)
-            .premultiply(translateCenter)
-            .premultiply(scale)
-            .premultiply(translateMap)
-
-        
-        utils.prettyPrintMatrix(this.camera.projectionMatrix.elements);
-    },
-
-}
-
-module.exports = exports = CameraControl;</pre>
+export default CameraControl;
+</pre>
     </article>
 </section>
 
@@ -344,9 +268,9 @@ module.exports = exports = CameraControl;</pre>
 	</span>
 
 <span class="jsdoc-message">
-	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a>
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.3</a>
 	
-		on 2017-12-07T16:36:50+08:00
+		on 2019-12-03T15:52:13+08:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
