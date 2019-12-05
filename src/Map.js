@@ -222,7 +222,7 @@ class Map extends Layer {
 		let plane = new THREE.Mesh(geometry, material);
 		// plane.position.x = plane.position.y = - PigeonGLConstants.WORLD_SIZE/2;
 		plane.position.z = -0.01;
-		this.addAtCoordinate(plane, this.map.center, { scaleToLatitude: true, preScale: 100 });
+		this.add(plane, this.map.center, { scaleToLatitude: true, preScale: 100 });
 	}
 
 

@@ -1,3 +1,6 @@
+import * as THREE from 'three';
+window.THREE = THREE;
+import "./Camera/OrbitControls"
 /**
  * window.PigeonGL 
  * @example
@@ -29,6 +32,10 @@ const PigeonGL = {
 	MapControl: require("./Layers/MapControl.js").default,
 	TextLayer: require("./Layers/TextLayer.js").default,
 	VRLayer: require("./Layers/VRLayer.js").default,
-	CloudPoints: require("./Layers/CloudPoints.js").default
+	CloudPoints: require("./Layers/CloudPoints.js").default,
+
+	//util
+	Text: require("./Utils/ThreeText.js").default
 }
 window.PigeonGL = PigeonGL;
+export default PigeonGL;

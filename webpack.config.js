@@ -8,7 +8,10 @@ module.exports = {
 	},
 	output: {
 		path: path.resolve(__dirname, 'build'),
-		filename: '[name].js'
+		filename: '[name].js',
+		library: "PigeonGL",
+		libraryTarget: "umd",
+		libraryExport: "default" // 默认导出
 	},
 	devServer: {
 		port: 8881,

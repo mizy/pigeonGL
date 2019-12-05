@@ -1,8 +1,8 @@
 {
   "name": "pigeon-gl",
-  "version": "1.0.3",
+  "version": "1.0.6",
   "description": "webgl pigeon map",
-  "main": "index.js",
+  "main": "./build/pigeonGL.js",
   "scripts": {
     "build": "webpack --mode=production --config webpack.config.js",
     "dev": "webpack-dev-server --mode=development --config webpack.config.js",
