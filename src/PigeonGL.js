@@ -1,6 +1,4 @@
 import * as THREE from 'three';
-window.THREE = THREE;
-import "./Camera/OrbitControls"
 /**
  * window.PigeonGL 
  * @example
@@ -18,7 +16,9 @@ import "./Camera/OrbitControls"
  * @property {MapControl} MapControl - 地图控制图层
  * @property {TextLayer} TextLayer - 文字图层
  */
+window.THREE = THREE;
 const PigeonGL = {
+	OrbitControls: require("./Camera/OrbitControls.js").default,
 	MTLLoader: require("./Loaders/MTLLoader.js"),
 	OBJLoader: require("./Loaders/OBJLoader.js"),
 

@@ -1,10 +1,10 @@
 {
   "name": "pigeon-gl",
-  "version": "1.0.6",
+  "version": "1.0.10",
   "description": "webgl pigeon map",
   "main": "./build/pigeonGL.js",
   "scripts": {
-    "build": "webpack --mode=production --config webpack.config.js",
+    "build": "webpack --mode=production --config webpack.config.build.js",
     "dev": "webpack-dev-server --mode=development --config webpack.config.js",
     "doc": "jsdoc -c jsdoc.json "
   },
@@ -16,6 +16,9 @@
     "webgl",
     "pigeon",
     "map"
+  ],
+  "files": [
+	  "build"
   ],
   "author": "mizy.mz",
   "license": "MIT",

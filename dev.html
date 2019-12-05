@@ -30,13 +30,13 @@
 		map.setupDefaultLights();
 		// map.status = 'stop';
 		var mtlLoader = new PigeonGL.MTLLoader();
-		mtlLoader.setPath("./examples/basic/models/"); //加载皮肤
+		mtlLoader.setPath("./examples/models/"); //加载皮肤
 		mtlLoader.load("Truck.mtl", function(materials) {
 			materials.preload();
 			var objLoader = new PigeonGL.OBJLoader(); //加载模型
 			objLoader.setMaterials(materials);
 			objLoader.load(
-				"./examples/basic/models/Truck.obj",
+				"./examples/models/Truck.obj",
 				function(obj) {
 					obj.rotation.y = Math.PI / 2;
 					obj.rotation.x = Math.PI / 2;

@@ -1,6 +1,6 @@
 var path = require('path');
 var pkg = require('./package.json');
-
+const webpack = require("webpack")
 module.exports = {
 	entry: {
 		pigeonGL: './src/PigeonGL.js',
@@ -13,7 +13,12 @@ module.exports = {
 		libraryTarget: "umd",
 		libraryExport: "default" // 默认导出
 	},
-
+	optimization: {
+		minimizer: []
+	},
+	externals: {
+		"three": "three"
+	},
 	devServer: {
 		port: 8881,
 		index: "dev.html",
@@ -47,5 +52,8 @@ module.exports = {
 	},
 	// devtool: 'inline-source-map',
 	plugins: [
+		new webpack.ProvidePlugin({
+			THREE: "three"
+		}),
 	]
 };

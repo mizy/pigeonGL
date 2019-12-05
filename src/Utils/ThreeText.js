@@ -1,5 +1,5 @@
 
-const THREE = window.THREE;
+import * as THREE from 'three';
 
 export default class extends THREE.Sprite {
 	constructor(text = '', textHeight = 10, color = 'rgba(255, 255, 255, 1)') {
