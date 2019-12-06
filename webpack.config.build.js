@@ -17,7 +17,7 @@ module.exports = {
 		minimizer: []
 	},
 	externals: {
-		"three": "three"
+		three: "three"
 	},
 	devServer: {
 		port: 8881,

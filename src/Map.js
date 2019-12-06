@@ -242,6 +242,7 @@ class Map extends Layer {
 		let sunlight = new THREE.DirectionalLight(0xffffff, 0.5);
 		sunlight.position.set(0, 800, 1000);
 		sunlight.matrixWorldNeedsUpdate = true;
+		this.sunlight = sunlight;
 		this.world.add(sunlight);
 	}
 }

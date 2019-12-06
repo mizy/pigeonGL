@@ -5,14 +5,13 @@
  * @author WestLangley / http://github.com/WestLangley
  * @author erich666 / http://erichaines.com
  */
-import * as THREE from 'three';
 // This set of controls performs orbiting, dollying (zooming), and panning.
 // Unlike TrackballControls, it maintains the "up" direction object.up (+Y by default).
 //
 //    Orbit - left mouse / touch: one finger move
 //    Zoom - middle mouse, or mousewheel / touch: two finger spread or squish
 //    Pan - right mouse, or arrow keys / touch: three finger swipe
-
+import { EventDispatcher } from 'three';
 const OrbitControls = function (object, domElement) {
 
 	this.object = object;
@@ -914,7 +913,7 @@ const OrbitControls = function (object, domElement) {
 
 };
 
-OrbitControls.prototype = Object.create(THREE.EventDispatcher.prototype);
+OrbitControls.prototype = Object.create(EventDispatcher.prototype);
 OrbitControls.prototype.constructor = OrbitControls;
 
 Object.defineProperties(OrbitControls.prototype, {

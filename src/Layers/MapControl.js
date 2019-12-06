@@ -9,7 +9,7 @@ class MapControl extends Layer {
 
 	defaultParams = {
 		zoomBase: 600,
-		moveSpeed: 1,
+		moveSpeed: 0.84,
 		pitchSpeed: 0.1,
 		rotateSpeed: 0.15,
 	}
@@ -78,7 +78,7 @@ class MapControl extends Layer {
 				let distance = Math.sqrt(Math.pow(xDis, 2) + Math.pow(yDis, 2));
 				if (distance < 0.1) return false;
 				let rotation = (xDis > 0 ? -1 : 1) * Math.asin(yDis / distance) + this.map.transform.angle;
-				let ratio = this.moveSpeed * (this.map.zoom / (this.zoomBase + Math.pow(this.map.zoom, 2)));
+				let ratio = this.moveSpeed * this.map.zoom / 1000;
 				this.map.center[0] += (xDis > 0 ? -1 : 1) * (distance * Math.cos(rotation)) * ratio;
 				this.map.center[1] += (xDis > 0 ? -1 : 1) * (distance * Math.sin(rotation)) * ratio;
 				this.cameraControl.update();
@@ -115,7 +115,7 @@ class MapControl extends Layer {
 			}
 		}
 		this.onWheel = (event) => {
-			this.map.zoom -= event.deltaY * this.map.zoom / this.zoomBase;
+			this.map.zoom += event.deltaY * this.map.zoom / this.zoomBase;
 			if (this.map.zoom < 5) return this.map.zoom = 5;
 			this.cameraControl.update();
 			event.preventDefault();

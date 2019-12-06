@@ -1,6 +1,6 @@
 {
   "name": "pigeon-gl",
-  "version": "1.0.10",
+  "version": "1.0.13",
   "description": "webgl pigeon map",
   "main": "./build/pigeonGL.js",
   "scripts": {
@@ -18,7 +18,7 @@
     "map"
   ],
   "files": [
-	  "build"
+    "build"
   ],
   "author": "mizy.mz",
   "license": "MIT",
@@ -39,7 +39,7 @@
     "webpack-cli": "^3.3.4"
   },
   "dependencies": {
-    "three": "^0.110.0",
+    "three": "^0.111.0",
     "webpack-dev-server": "^3.9.0"
   }
 }

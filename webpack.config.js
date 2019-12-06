@@ -1,6 +1,8 @@
 var path = require('path');
 var pkg = require('./package.json');
 
+const webpack = require("webpack")
+
 module.exports = {
 	entry: {
 		pigeonGL: './src/PigeonGL.js',
@@ -47,5 +49,8 @@ module.exports = {
 	},
 	// devtool: 'inline-source-map',
 	plugins: [
+		new webpack.ProvidePlugin({
+			THREE: "three"
+		}),
 	]
 };
