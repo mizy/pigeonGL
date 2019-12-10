@@ -7,7 +7,7 @@
 		exports["PigeonGL"] = factory(require("three"));
 	else
 		root["PigeonGL"] = factory(root["three"]);
-})(window, function(__WEBPACK_EXTERNAL_MODULE__2__) {
+})(window, function(__WEBPACK_EXTERNAL_MODULE__0__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -98,6 +98,12 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 0 */
 /***/ (function(module, exports) {
 
+module.exports = __WEBPACK_EXTERNAL_MODULE__0__;
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports) {
+
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
     throw new TypeError("Cannot call a class as a function");
@@ -107,7 +113,7 @@ function _classCallCheck(instance, Constructor) {
 module.exports = _classCallCheck;
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports) {
 
 function _defineProperties(target, props) {
@@ -127,12 +133,6 @@ function _createClass(Constructor, protoProps, staticProps) {
 }
 
 module.exports = _createClass;
-
-/***/ }),
-/* 2 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE__2__;
 
 /***/ }),
 /* 3 */
@@ -194,9 +194,9 @@ module.exports = _inherits;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
 
 
@@ -395,9 +395,9 @@ module.exports = _typeof;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(THREE) {/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* WEBPACK VAR INJECTION */(function(THREE) {/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
 
 
@@ -551,7 +551,7 @@ function () {
 }();
 
 /* harmony default export */ __webpack_exports__["default"] = (CameraControl);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))
 
 /***/ }),
 /* 9 */
@@ -638,7 +638,7 @@ window.PigeonGL = PigeonGL;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(THREE) {/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* WEBPACK VAR INJECTION */(function(THREE) {/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
 /* harmony import */ var three__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(three__WEBPACK_IMPORTED_MODULE_0__);
 /**
  * @author qiao / https://github.com/qiao
@@ -1349,22 +1349,28 @@ Object.defineProperties(OrbitControls.prototype, {
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (OrbitControls);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))
 
 /***/ }),
 /* 13 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(THREE) {/**
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(three__WEBPACK_IMPORTED_MODULE_0__);
+/**
  * Loads a Wavefront .mtl file specifying materials
- * @class
+ *
  * @author angelxuanchang
  */
+
+
 var MTLLoader = function MTLLoader(manager) {
-  this.manager = manager !== undefined ? manager : THREE.DefaultLoadingManager;
+  three__WEBPACK_IMPORTED_MODULE_0__["Loader"].call(this, manager);
 };
 
-MTLLoader.prototype = {
+MTLLoader.prototype = Object.assign(Object.create(three__WEBPACK_IMPORTED_MODULE_0__["Loader"].prototype), {
   constructor: MTLLoader,
 
   /**
@@ -1375,75 +1381,38 @@ MTLLoader.prototype = {
    * @param {Function} [onProgress] - Callback for download progress.
    * @param {Function} [onError] - Callback for download errors.
    *
-   * @see setPath setTexturePath
+   * @see setPath setResourcePath
    *
    * @note In order for relative texture references to resolve correctly
-   * you must call setPath and/or setTexturePath explicitly prior to load.
+   * you must call setResourcePath() explicitly prior to load.
    */
   load: function load(url, onLoad, onProgress, onError) {
     var scope = this;
-    var loader = new THREE.FileLoader(this.manager);
+    var path = this.path === "" ? three__WEBPACK_IMPORTED_MODULE_0__["LoaderUtils"].extractUrlBase(url) : this.path;
+    var loader = new three__WEBPACK_IMPORTED_MODULE_0__["FileLoader"](this.manager);
     loader.setPath(this.path);
     loader.load(url, function (text) {
-      onLoad(scope.parse(text));
+      onLoad(scope.parse(text, path));
     }, onProgress, onError);
-  },
-
-  /**
-   * Set base path for resolving references.
-   * If set this path will be prepended to each loaded and found reference.
-   *
-   * @see setTexturePath
-   * @param {String} path
-   *
-   * @example
-   *     mtlLoader.setPath( 'assets/obj/' );
-   *     mtlLoader.load( 'my.mtl', ... );
-   */
-  setPath: function setPath(path) {
-    this.path = path;
-  },
-
-  /**
-   * Set base path for resolving texture references.
-   * If set this path will be prepended found texture reference.
-   * If not set and setPath is, it will be used as texture base path.
-   *
-   * @see setPath
-   * @param {String} path
-   *
-   * @example
-   *     mtlLoader.setPath( 'assets/obj/' );
-   *     mtlLoader.setTexturePath( 'assets/textures/' );
-   *     mtlLoader.load( 'my.mtl', ... );
-   */
-  setTexturePath: function setTexturePath(path) {
-    this.texturePath = path;
-  },
-  setBaseUrl: function setBaseUrl(path) {
-    console.warn('THREE.MTLLoader: .setBaseUrl() is deprecated. Use .setTexturePath( path ) for texture path or .setPath( path ) for general base path instead.');
-    this.setTexturePath(path);
-  },
-  setCrossOrigin: function setCrossOrigin(value) {
-    this.crossOrigin = value;
   },
   setMaterialOptions: function setMaterialOptions(value) {
     this.materialOptions = value;
+    return this;
   },
 
   /**
    * Parses a MTL file.
    *
    * @param {String} text - Content of MTL file
-   * @return {THREE.MTLLoader.MaterialCreator}
+   * @return {MTLLoader.MaterialCreator}
    *
-   * @see setPath setTexturePath
+   * @see setPath setResourcePath
    *
    * @note In order for relative texture references to resolve correctly
-   * you must call setPath and/or setTexturePath explicitly prior to parse.
+   * you must call setResourcePath() explicitly prior to parse.
    */
-  parse: function parse(text) {
-    var lines = text.split('\n');
+  parse: function parse(text, path) {
+    var lines = text.split("\n");
     var info = {};
     var delimiter_pattern = /\s+/;
     var materialsInfo = {};
@@ -1452,25 +1421,25 @@ MTLLoader.prototype = {
       var line = lines[i];
       line = line.trim();
 
-      if (line.length === 0 || line.charAt(0) === '#') {
+      if (line.length === 0 || line.charAt(0) === "#") {
         // Blank line or comment ignore
         continue;
       }
 
-      var pos = line.indexOf(' ');
+      var pos = line.indexOf(" ");
       var key = pos >= 0 ? line.substring(0, pos) : line;
       key = key.toLowerCase();
-      var value = pos >= 0 ? line.substring(pos + 1) : '';
+      var value = pos >= 0 ? line.substring(pos + 1) : "";
       value = value.trim();
 
-      if (key === 'newmtl') {
+      if (key === "newmtl") {
         // New material
         info = {
           name: value
         };
         materialsInfo[value] = info;
-      } else if (info) {
-        if (key === 'ka' || key === 'kd' || key === 'ks') {
+      } else {
+        if (key === "ka" || key === "kd" || key === "ks" || key === "ke") {
           var ss = value.split(delimiter_pattern, 3);
           info[key] = [parseFloat(ss[0]), parseFloat(ss[1]), parseFloat(ss[2])];
         } else {
@@ -1479,13 +1448,13 @@ MTLLoader.prototype = {
       }
     }
 
-    var materialCreator = new MTLLoader.MaterialCreator(this.texturePath || this.path, this.materialOptions);
+    var materialCreator = new MTLLoader.MaterialCreator(this.resourcePath || path, this.materialOptions);
     materialCreator.setCrossOrigin(this.crossOrigin);
     materialCreator.setManager(this.manager);
     materialCreator.setMaterials(materialsInfo);
     return materialCreator;
   }
-};
+});
 /**
  * Create a new THREE-MTLLoader.MaterialCreator
  * @param baseUrl - Url relative to which textures are loaded
@@ -1498,23 +1467,26 @@ MTLLoader.prototype = {
  *                                Default: false, assumed to be already normalized
  *                  ignoreZeroRGBs: Ignore values of RGBs (Ka,Kd,Ks) that are all 0's
  *                                  Default: false
+ * @constructor
  */
 
 MTLLoader.MaterialCreator = function (baseUrl, options) {
-  this.baseUrl = baseUrl || '';
+  this.baseUrl = baseUrl || "";
   this.options = options;
   this.materialsInfo = {};
   this.materials = {};
   this.materialsArray = [];
   this.nameLookup = {};
-  this.side = this.options && this.options.side ? this.options.side : THREE.FrontSide;
-  this.wrap = this.options && this.options.wrap ? this.options.wrap : THREE.RepeatWrapping;
+  this.side = this.options && this.options.side ? this.options.side : three__WEBPACK_IMPORTED_MODULE_0__["FrontSide"];
+  this.wrap = this.options && this.options.wrap ? this.options.wrap : three__WEBPACK_IMPORTED_MODULE_0__["RepeatWrapping"];
 };
 
 MTLLoader.MaterialCreator.prototype = {
   constructor: MTLLoader.MaterialCreator,
+  crossOrigin: "anonymous",
   setCrossOrigin: function setCrossOrigin(value) {
     this.crossOrigin = value;
+    return this;
   },
   setManager: function setManager(value) {
     this.manager = value;
@@ -1541,9 +1513,9 @@ MTLLoader.MaterialCreator.prototype = {
         var lprop = prop.toLowerCase();
 
         switch (lprop) {
-          case 'kd':
-          case 'ka':
-          case 'ks':
+          case "kd":
+          case "ka":
+          case "ks":
             // Diffuse color (color under white light) using RGB values
             if (this.options && this.options.normalizeRGB) {
               value = [value[0] / 255, value[1] / 255, value[2] / 255];
@@ -1606,7 +1578,10 @@ MTLLoader.MaterialCreator.prototype = {
     };
 
     function resolveURL(baseUrl, url) {
-      if (typeof url !== 'string' || url === '') return ''; // Absolute URL
+      if (typeof url !== "string" || url === "") {
+        return "";
+      } // Absolute URL
+
 
       if (/^https?:\/\//i.test(url)) return url;
       return baseUrl + url;
@@ -1626,53 +1601,79 @@ MTLLoader.MaterialCreator.prototype = {
 
     for (var prop in mat) {
       var value = mat[prop];
-      if (value === '') continue;
+      var n;
+      if (value === "") continue;
 
       switch (prop.toLowerCase()) {
         // Ns is material specular exponent
-        case 'kd':
+        case "kd":
           // Diffuse color (color under white light) using RGB values
-          params.color = new THREE.Color().fromArray(value);
+          params.color = new three__WEBPACK_IMPORTED_MODULE_0__["Color"]().fromArray(value);
           break;
 
-        case 'ks':
+        case "ks":
           // Specular color (color when light is reflected from shiny surface) using RGB values
-          params.specular = new THREE.Color().fromArray(value);
+          params.specular = new three__WEBPACK_IMPORTED_MODULE_0__["Color"]().fromArray(value);
           break;
 
-        case 'map_kd':
+        case "ke":
+          // Emissive using RGB values
+          params.emissive = new three__WEBPACK_IMPORTED_MODULE_0__["Color"]().fromArray(value);
+          break;
+
+        case "map_kd":
           // Diffuse texture map
           setMapForType("map", value);
           break;
 
-        case 'map_ks':
+        case "map_ks":
           // Specular map
           setMapForType("specularMap", value);
           break;
 
-        case 'map_bump':
-        case 'bump':
+        case "map_ke":
+          // Emissive map
+          setMapForType("emissiveMap", value);
+          break;
+
+        case "norm":
+          setMapForType("normalMap", value);
+          break;
+
+        case "map_bump":
+        case "bump":
           // Bump texture map
           setMapForType("bumpMap", value);
           break;
 
-        case 'ns':
+        case "map_d":
+          // Alpha map
+          setMapForType("alphaMap", value);
+          params.transparent = true;
+          break;
+
+        case "ns":
           // The specular exponent (defines the focus of the specular highlight)
           // A high exponent results in a tight, concentrated highlight. Ns values normally range from 0 to 1000.
           params.shininess = parseFloat(value);
           break;
 
-        case 'd':
-          if (value < 1) {
-            params.opacity = value;
+        case "d":
+          n = parseFloat(value);
+
+          if (n < 1) {
+            params.opacity = n;
             params.transparent = true;
           }
 
           break;
 
-        case 'Tr':
-          if (value > 0) {
-            params.opacity = 1 - value;
+        case "tr":
+          n = parseFloat(value);
+          if (this.options && this.options.invertTrProperty) n = 1 - n;
+
+          if (n > 0) {
+            params.opacity = 1 - n;
             params.transparent = true;
           }
 
@@ -1683,47 +1684,47 @@ MTLLoader.MaterialCreator.prototype = {
       }
     }
 
-    this.materials[materialName] = new THREE.MeshPhongMaterial(params);
+    this.materials[materialName] = new three__WEBPACK_IMPORTED_MODULE_0__["MeshPhongMaterial"](params);
     return this.materials[materialName];
   },
   getTextureParams: function getTextureParams(value, matParams) {
     var texParams = {
-      scale: new THREE.Vector2(1, 1),
-      offset: new THREE.Vector2(0, 0)
+      scale: new three__WEBPACK_IMPORTED_MODULE_0__["Vector2"](1, 1),
+      offset: new three__WEBPACK_IMPORTED_MODULE_0__["Vector2"](0, 0)
     };
     var items = value.split(/\s+/);
     var pos;
-    pos = items.indexOf('-bm');
+    pos = items.indexOf("-bm");
 
     if (pos >= 0) {
       matParams.bumpScale = parseFloat(items[pos + 1]);
       items.splice(pos, 2);
     }
 
-    pos = items.indexOf('-s');
+    pos = items.indexOf("-s");
 
     if (pos >= 0) {
       texParams.scale.set(parseFloat(items[pos + 1]), parseFloat(items[pos + 2]));
       items.splice(pos, 4); // we expect 3 parameters here!
     }
 
-    pos = items.indexOf('-o');
+    pos = items.indexOf("-o");
 
     if (pos >= 0) {
       texParams.offset.set(parseFloat(items[pos + 1]), parseFloat(items[pos + 2]));
       items.splice(pos, 4); // we expect 3 parameters here!
     }
 
-    texParams.url = items.join(' ').trim();
+    texParams.url = items.join(" ").trim();
     return texParams;
   },
   loadTexture: function loadTexture(url, mapping, onLoad, onProgress, onError) {
     var texture;
-    var loader = THREE.Loader.Handlers.get(url);
-    var manager = this.manager !== undefined ? this.manager : THREE.DefaultLoadingManager;
+    var manager = this.manager !== undefined ? this.manager : three__WEBPACK_IMPORTED_MODULE_0__["DefaultLoadingManager"];
+    var loader = manager.getHandler(url);
 
     if (loader === null) {
-      loader = new THREE.TextureLoader(manager);
+      loader = new three__WEBPACK_IMPORTED_MODULE_0__["TextureLoader"](manager);
     }
 
     if (loader.setCrossOrigin) loader.setCrossOrigin(this.crossOrigin);
@@ -1732,68 +1733,38 @@ MTLLoader.MaterialCreator.prototype = {
     return texture;
   }
 };
-module.exports = exports = MTLLoader;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
+/* harmony default export */ __webpack_exports__["default"] = (MTLLoader);
 
 /***/ }),
 /* 14 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(THREE) {/**
- * @class
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(three__WEBPACK_IMPORTED_MODULE_0__);
+/**
  * @author mrdoob / http://mrdoob.com/
  */
-var OBJLoader = function OBJLoader(manager) {
-  this.manager = manager !== undefined ? manager : THREE.DefaultLoadingManager;
-  this.materials = null;
-  this.regexp = {
-    // v float float float
-    vertex_pattern: /^v\s+([\d|\.|\+|\-|e|E]+)\s+([\d|\.|\+|\-|e|E]+)\s+([\d|\.|\+|\-|e|E]+)/,
-    // vn float float float
-    normal_pattern: /^vn\s+([\d|\.|\+|\-|e|E]+)\s+([\d|\.|\+|\-|e|E]+)\s+([\d|\.|\+|\-|e|E]+)/,
-    // vt float float
-    uv_pattern: /^vt\s+([\d|\.|\+|\-|e|E]+)\s+([\d|\.|\+|\-|e|E]+)/,
-    // f vertex vertex vertex
-    face_vertex: /^f\s+(-?\d+)\s+(-?\d+)\s+(-?\d+)(?:\s+(-?\d+))?/,
-    // f vertex/uv vertex/uv vertex/uv
-    face_vertex_uv: /^f\s+(-?\d+)\/(-?\d+)\s+(-?\d+)\/(-?\d+)\s+(-?\d+)\/(-?\d+)(?:\s+(-?\d+)\/(-?\d+))?/,
-    // f vertex/uv/normal vertex/uv/normal vertex/uv/normal
-    face_vertex_uv_normal: /^f\s+(-?\d+)\/(-?\d+)\/(-?\d+)\s+(-?\d+)\/(-?\d+)\/(-?\d+)\s+(-?\d+)\/(-?\d+)\/(-?\d+)(?:\s+(-?\d+)\/(-?\d+)\/(-?\d+))?/,
-    // f vertex//normal vertex//normal vertex//normal
-    face_vertex_normal: /^f\s+(-?\d+)\/\/(-?\d+)\s+(-?\d+)\/\/(-?\d+)\s+(-?\d+)\/\/(-?\d+)(?:\s+(-?\d+)\/\/(-?\d+))?/,
-    // o object_name | g group_name
-    object_pattern: /^[og]\s*(.+)?/,
-    // s boolean
-    smoothing_pattern: /^s\s+(\d+|on|off)/,
-    // mtllib file_reference
-    material_library_pattern: /^mtllib /,
-    // usemtl material_name
-    material_use_pattern: /^usemtl /
-  };
-};
 
-OBJLoader.prototype = {
-  constructor: OBJLoader,
-  load: function load(url, onLoad, onProgress, onError) {
-    var scope = this;
-    var loader = new THREE.FileLoader(scope.manager);
-    loader.setPath(this.path);
-    loader.load(url, function (text) {
-      onLoad(scope.parse(text));
-    }, onProgress, onError);
-  },
-  setPath: function setPath(value) {
-    this.path = value;
-  },
-  setMaterials: function setMaterials(materials) {
-    this.materials = materials;
-  },
-  _createParserState: function _createParserState() {
+
+var OBJLoader = function () {
+  // o object_name | g group_name
+  var object_pattern = /^[og]\s*(.+)?/; // mtllib file_reference
+
+  var material_library_pattern = /^mtllib /; // usemtl material_name
+
+  var material_use_pattern = /^usemtl /; // usemap map_name
+
+  var map_use_pattern = /^usemap /;
+
+  function ParserState() {
     var state = {
       objects: [],
       object: {},
       vertices: [],
       normals: [],
+      colors: [],
       uvs: [],
       materialLibraries: [],
       startObject: function startObject(name, fromDeclaration) {
@@ -1805,18 +1776,19 @@ OBJLoader.prototype = {
           return;
         }
 
-        var previousMaterial = this.object && typeof this.object.currentMaterial === 'function' ? this.object.currentMaterial() : undefined;
+        var previousMaterial = this.object && typeof this.object.currentMaterial === "function" ? this.object.currentMaterial() : undefined;
 
-        if (this.object && typeof this.object._finalize === 'function') {
+        if (this.object && typeof this.object._finalize === "function") {
           this.object._finalize(true);
         }
 
         this.object = {
-          name: name || '',
+          name: name || "",
           fromDeclaration: fromDeclaration !== false,
           geometry: {
             vertices: [],
             normals: [],
+            colors: [],
             uvs: []
           },
           materials: [],
@@ -1832,8 +1804,8 @@ OBJLoader.prototype = {
 
             var material = {
               index: this.materials.length,
-              name: name || '',
-              mtllib: Array.isArray(libraries) && libraries.length > 0 ? libraries[libraries.length - 1] : '',
+              name: name || "",
+              mtllib: Array.isArray(libraries) && libraries.length > 0 ? libraries[libraries.length - 1] : "",
               smooth: previous !== undefined ? previous.smooth : this.smooth,
               groupStart: previous !== undefined ? previous.groupEnd : 0,
               groupEnd: -1,
@@ -1841,7 +1813,7 @@ OBJLoader.prototype = {
               inherited: false,
               clone: function clone(index) {
                 var cloned = {
-                  index: typeof index === 'number' ? index : this.index,
+                  index: typeof index === "number" ? index : this.index,
                   name: this.name,
                   mtllib: this.mtllib,
                   smooth: this.smooth,
@@ -1885,7 +1857,7 @@ OBJLoader.prototype = {
 
             if (end && this.materials.length === 0) {
               this.materials.push({
-                name: '',
+                name: "",
                 smooth: this.smooth
               });
             }
@@ -1907,7 +1879,7 @@ OBJLoader.prototype = {
         this.objects.push(this.object);
       },
       finalize: function finalize() {
-        if (this.object && typeof this.object._finalize === 'function') {
+        if (this.object && typeof this.object._finalize === "function") {
           this.object._finalize(true);
         }
       },
@@ -1926,100 +1898,84 @@ OBJLoader.prototype = {
       addVertex: function addVertex(a, b, c) {
         var src = this.vertices;
         var dst = this.object.geometry.vertices;
-        dst.push(src[a + 0]);
-        dst.push(src[a + 1]);
-        dst.push(src[a + 2]);
-        dst.push(src[b + 0]);
-        dst.push(src[b + 1]);
-        dst.push(src[b + 2]);
-        dst.push(src[c + 0]);
-        dst.push(src[c + 1]);
-        dst.push(src[c + 2]);
+        dst.push(src[a + 0], src[a + 1], src[a + 2]);
+        dst.push(src[b + 0], src[b + 1], src[b + 2]);
+        dst.push(src[c + 0], src[c + 1], src[c + 2]);
+      },
+      addVertexPoint: function addVertexPoint(a) {
+        var src = this.vertices;
+        var dst = this.object.geometry.vertices;
+        dst.push(src[a + 0], src[a + 1], src[a + 2]);
       },
       addVertexLine: function addVertexLine(a) {
         var src = this.vertices;
         var dst = this.object.geometry.vertices;
-        dst.push(src[a + 0]);
-        dst.push(src[a + 1]);
-        dst.push(src[a + 2]);
+        dst.push(src[a + 0], src[a + 1], src[a + 2]);
       },
       addNormal: function addNormal(a, b, c) {
         var src = this.normals;
         var dst = this.object.geometry.normals;
-        dst.push(src[a + 0]);
-        dst.push(src[a + 1]);
-        dst.push(src[a + 2]);
-        dst.push(src[b + 0]);
-        dst.push(src[b + 1]);
-        dst.push(src[b + 2]);
-        dst.push(src[c + 0]);
-        dst.push(src[c + 1]);
-        dst.push(src[c + 2]);
+        dst.push(src[a + 0], src[a + 1], src[a + 2]);
+        dst.push(src[b + 0], src[b + 1], src[b + 2]);
+        dst.push(src[c + 0], src[c + 1], src[c + 2]);
+      },
+      addColor: function addColor(a, b, c) {
+        var src = this.colors;
+        var dst = this.object.geometry.colors;
+        dst.push(src[a + 0], src[a + 1], src[a + 2]);
+        dst.push(src[b + 0], src[b + 1], src[b + 2]);
+        dst.push(src[c + 0], src[c + 1], src[c + 2]);
       },
       addUV: function addUV(a, b, c) {
         var src = this.uvs;
         var dst = this.object.geometry.uvs;
-        dst.push(src[a + 0]);
-        dst.push(src[a + 1]);
-        dst.push(src[b + 0]);
-        dst.push(src[b + 1]);
-        dst.push(src[c + 0]);
-        dst.push(src[c + 1]);
+        dst.push(src[a + 0], src[a + 1]);
+        dst.push(src[b + 0], src[b + 1]);
+        dst.push(src[c + 0], src[c + 1]);
       },
       addUVLine: function addUVLine(a) {
         var src = this.uvs;
         var dst = this.object.geometry.uvs;
-        dst.push(src[a + 0]);
-        dst.push(src[a + 1]);
+        dst.push(src[a + 0], src[a + 1]);
       },
-      addFace: function addFace(a, b, c, d, ua, ub, uc, ud, na, nb, nc, nd) {
+      addFace: function addFace(a, b, c, ua, ub, uc, na, nb, nc) {
         var vLen = this.vertices.length;
         var ia = this.parseVertexIndex(a, vLen);
         var ib = this.parseVertexIndex(b, vLen);
         var ic = this.parseVertexIndex(c, vLen);
-        var id;
+        this.addVertex(ia, ib, ic);
 
-        if (d === undefined) {
-          this.addVertex(ia, ib, ic);
-        } else {
-          id = this.parseVertexIndex(d, vLen);
-          this.addVertex(ia, ib, id);
-          this.addVertex(ib, ic, id);
+        if (this.colors.length > 0) {
+          this.addColor(ia, ib, ic);
         }
 
-        if (ua !== undefined) {
+        if (ua !== undefined && ua !== "") {
           var uvLen = this.uvs.length;
           ia = this.parseUVIndex(ua, uvLen);
           ib = this.parseUVIndex(ub, uvLen);
           ic = this.parseUVIndex(uc, uvLen);
-
-          if (d === undefined) {
-            this.addUV(ia, ib, ic);
-          } else {
-            id = this.parseUVIndex(ud, uvLen);
-            this.addUV(ia, ib, id);
-            this.addUV(ib, ic, id);
-          }
+          this.addUV(ia, ib, ic);
         }
 
-        if (na !== undefined) {
+        if (na !== undefined && na !== "") {
           // Normals are many times the same. If so, skip function call and parseInt.
           var nLen = this.normals.length;
           ia = this.parseNormalIndex(na, nLen);
           ib = na === nb ? ia : this.parseNormalIndex(nb, nLen);
           ic = na === nc ? ia : this.parseNormalIndex(nc, nLen);
+          this.addNormal(ia, ib, ic);
+        }
+      },
+      addPointGeometry: function addPointGeometry(vertices) {
+        this.object.geometry.type = "Points";
+        var vLen = this.vertices.length;
 
-          if (d === undefined) {
-            this.addNormal(ia, ib, ic);
-          } else {
-            id = this.parseNormalIndex(nd, nLen);
-            this.addNormal(ia, ib, id);
-            this.addNormal(ib, ic, id);
-          }
+        for (var vi = 0, l = vertices.length; vi < l; vi++) {
+          this.addVertexPoint(this.parseVertexIndex(vertices[vi], vLen));
         }
       },
       addLineGeometry: function addLineGeometry(vertices, uvs) {
-        this.object.geometry.type = 'Line';
+        this.object.geometry.type = "Line";
         var vLen = this.vertices.length;
         var uvLen = this.uvs.length;
 
@@ -2032,211 +1988,296 @@ OBJLoader.prototype = {
         }
       }
     };
-    state.startObject('', false);
+    state.startObject("", false);
     return state;
-  },
-  parse: function parse(text) {
-    //console.time( 'OBJLoader' );
-    var state = this._createParserState();
+  } //
 
-    if (text.indexOf('\r\n') !== -1) {
-      // This is faster than String.split with regex that splits on both
-      text = text.replace(/\r\n/g, '\n');
-    }
 
-    if (text.indexOf('\\\n') !== -1) {
-      // join lines separated by a line continuation character (\)
-      text = text.replace(/\\\n/g, '');
-    }
+  function OBJLoader(manager) {
+    three__WEBPACK_IMPORTED_MODULE_0__["Loader"].call(this, manager);
+    this.materials = null;
+  }
 
-    var lines = text.split('\n');
-    var line = '',
-        lineFirstChar = '',
-        lineSecondChar = '';
-    var lineLength = 0;
-    var result = []; // Faster to just trim left side of the line. Use if available.
+  OBJLoader.prototype = Object.assign(Object.create(three__WEBPACK_IMPORTED_MODULE_0__["Loader"].prototype), {
+    constructor: OBJLoader,
+    load: function load(url, onLoad, onProgress, onError) {
+      var scope = this;
+      var loader = new three__WEBPACK_IMPORTED_MODULE_0__["FileLoader"](scope.manager);
+      loader.setPath(this.path);
+      loader.load(url, function (text) {
+        onLoad(scope.parse(text));
+      }, onProgress, onError);
+    },
+    setMaterials: function setMaterials(materials) {
+      this.materials = materials;
+      return this;
+    },
+    parse: function parse(text) {
+      console.time("OBJLoader");
+      var state = new ParserState();
 
-    var trimLeft = typeof ''.trimLeft === 'function';
-
-    for (var i = 0, l = lines.length; i < l; i++) {
-      line = lines[i];
-      line = trimLeft ? line.trimLeft() : line.trim();
-      lineLength = line.length;
-      if (lineLength === 0) continue;
-      lineFirstChar = line.charAt(0); // @todo invoke passed in handler if any
-
-      if (lineFirstChar === '#') continue;
-
-      if (lineFirstChar === 'v') {
-        lineSecondChar = line.charAt(1);
-
-        if (lineSecondChar === ' ' && (result = this.regexp.vertex_pattern.exec(line)) !== null) {
-          // 0                  1      2      3
-          // ["v 1.0 2.0 3.0", "1.0", "2.0", "3.0"]
-          state.vertices.push(parseFloat(result[1]), parseFloat(result[2]), parseFloat(result[3]));
-        } else if (lineSecondChar === 'n' && (result = this.regexp.normal_pattern.exec(line)) !== null) {
-          // 0                   1      2      3
-          // ["vn 1.0 2.0 3.0", "1.0", "2.0", "3.0"]
-          state.normals.push(parseFloat(result[1]), parseFloat(result[2]), parseFloat(result[3]));
-        } else if (lineSecondChar === 't' && (result = this.regexp.uv_pattern.exec(line)) !== null) {
-          // 0               1      2
-          // ["vt 0.1 0.2", "0.1", "0.2"]
-          state.uvs.push(parseFloat(result[1]), parseFloat(result[2]));
-        } else {
-          throw new Error("Unexpected vertex/normal/uv line: '" + line + "'");
-        }
-      } else if (lineFirstChar === "f") {
-        if ((result = this.regexp.face_vertex_uv_normal.exec(line)) !== null) {
-          // f vertex/uv/normal vertex/uv/normal vertex/uv/normal
-          // 0                        1    2    3    4    5    6    7    8    9   10         11         12
-          // ["f 1/1/1 2/2/2 3/3/3", "1", "1", "1", "2", "2", "2", "3", "3", "3", undefined, undefined, undefined]
-          state.addFace(result[1], result[4], result[7], result[10], result[2], result[5], result[8], result[11], result[3], result[6], result[9], result[12]);
-        } else if ((result = this.regexp.face_vertex_uv.exec(line)) !== null) {
-          // f vertex/uv vertex/uv vertex/uv
-          // 0                  1    2    3    4    5    6   7          8
-          // ["f 1/1 2/2 3/3", "1", "1", "2", "2", "3", "3", undefined, undefined]
-          state.addFace(result[1], result[3], result[5], result[7], result[2], result[4], result[6], result[8]);
-        } else if ((result = this.regexp.face_vertex_normal.exec(line)) !== null) {
-          // f vertex//normal vertex//normal vertex//normal
-          // 0                     1    2    3    4    5    6   7          8
-          // ["f 1//1 2//2 3//3", "1", "1", "2", "2", "3", "3", undefined, undefined]
-          state.addFace(result[1], result[3], result[5], result[7], undefined, undefined, undefined, undefined, result[2], result[4], result[6], result[8]);
-        } else if ((result = this.regexp.face_vertex.exec(line)) !== null) {
-          // f vertex vertex vertex
-          // 0            1    2    3   4
-          // ["f 1 2 3", "1", "2", "3", undefined]
-          state.addFace(result[1], result[2], result[3], result[4]);
-        } else {
-          throw new Error("Unexpected face line: '" + line + "'");
-        }
-      } else if (lineFirstChar === "l") {
-        var lineParts = line.substring(1).trim().split(" ");
-        var lineVertices = [],
-            lineUVs = [];
-
-        if (line.indexOf("/") === -1) {
-          lineVertices = lineParts;
-        } else {
-          for (var li = 0, llen = lineParts.length; li < llen; li++) {
-            var parts = lineParts[li].split("/");
-            if (parts[0] !== "") lineVertices.push(parts[0]);
-            if (parts[1] !== "") lineUVs.push(parts[1]);
-          }
-        }
-
-        state.addLineGeometry(lineVertices, lineUVs);
-      } else if ((result = this.regexp.object_pattern.exec(line)) !== null) {
-        // o object_name
-        // or
-        // g group_name
-        // WORKAROUND: https://bugs.chromium.org/p/v8/issues/detail?id=2869
-        // var name = result[ 0 ].substr( 1 ).trim();
-        var name = (" " + result[0].substr(1).trim()).substr(1);
-        state.startObject(name);
-      } else if (this.regexp.material_use_pattern.test(line)) {
-        // material
-        state.object.startMaterial(line.substring(7).trim(), state.materialLibraries);
-      } else if (this.regexp.material_library_pattern.test(line)) {
-        // mtl file
-        state.materialLibraries.push(line.substring(7).trim());
-      } else if ((result = this.regexp.smoothing_pattern.exec(line)) !== null) {
-        // smooth shading
-        // @todo Handle files that have varying smooth values for a set of faces inside one geometry,
-        // but does not define a usemtl for each face set.
-        // This should be detected and a dummy material created (later MultiMaterial and geometry groups).
-        // This requires some care to not create extra material on each smooth value for "normal" obj files.
-        // where explicit usemtl defines geometry groups.
-        // Example asset: examples/models/obj/cerberus/Cerberus.obj
-        var value = result[1].trim().toLowerCase();
-        state.object.smooth = value === '1' || value === 'on';
-        var material = state.object.currentMaterial();
-
-        if (material) {
-          material.smooth = state.object.smooth;
-        }
-      } else {
-        // Handle null terminated files without exception
-        if (line === '\0') continue;
-        throw new Error("Unexpected line: '" + line + "'");
-      }
-    }
-
-    state.finalize();
-    var container = new THREE.Group();
-    container.materialLibraries = [].concat(state.materialLibraries);
-
-    for (var i = 0, l = state.objects.length; i < l; i++) {
-      var object = state.objects[i];
-      var geometry = object.geometry;
-      var materials = object.materials;
-      var isLine = geometry.type === 'Line'; // Skip o/g line declarations that did not follow with any faces
-
-      if (geometry.vertices.length === 0) continue;
-      var buffergeometry = new THREE.BufferGeometry();
-      buffergeometry.addAttribute('position', new THREE.BufferAttribute(new Float32Array(geometry.vertices), 3));
-
-      if (geometry.normals.length > 0) {
-        buffergeometry.addAttribute('normal', new THREE.BufferAttribute(new Float32Array(geometry.normals), 3));
-      } else {
-        buffergeometry.computeVertexNormals();
+      if (text.indexOf("\r\n") !== -1) {
+        // This is faster than String.split with regex that splits on both
+        text = text.replace(/\r\n/g, "\n");
       }
 
-      if (geometry.uvs.length > 0) {
-        buffergeometry.addAttribute('uv', new THREE.BufferAttribute(new Float32Array(geometry.uvs), 2));
-      } // Create materials
+      if (text.indexOf("\\\n") !== -1) {
+        // join lines separated by a line continuation character (\)
+        text = text.replace(/\\\n/g, "");
+      }
 
+      var lines = text.split("\n");
+      var line = "";
+      var lineFirstChar = "";
+      var lineLength = 0;
+      var result = []; // Faster to just trim left side of the line. Use if available.
 
-      var createdMaterials = [];
+      var trimLeft = typeof "".trimLeft === "function";
 
-      for (var mi = 0, miLen = materials.length; mi < miLen; mi++) {
-        var sourceMaterial = materials[mi];
-        var material = undefined;
+      for (var i = 0, l = lines.length; i < l; i++) {
+        line = lines[i];
+        line = trimLeft ? line.trimLeft() : line.trim();
+        lineLength = line.length;
+        if (lineLength === 0) continue;
+        lineFirstChar = line.charAt(0); // @todo invoke passed in handler if any
 
-        if (this.materials !== null) {
-          material = this.materials.create(sourceMaterial.name); // mtl etc. loaders probably can't create line materials correctly, copy properties to a line material.
+        if (lineFirstChar === "#") continue;
 
-          if (isLine && material && !(material instanceof THREE.LineBasicMaterial)) {
-            var materialLine = new THREE.LineBasicMaterial();
-            materialLine.copy(material);
-            materialLine.lights = false;
-            material = materialLine;
+        if (lineFirstChar === "v") {
+          var data = line.split(/\s+/);
+
+          switch (data[0]) {
+            case "v":
+              state.vertices.push(parseFloat(data[1]), parseFloat(data[2]), parseFloat(data[3]));
+
+              if (data.length >= 7) {
+                state.colors.push(parseFloat(data[4]), parseFloat(data[5]), parseFloat(data[6]));
+              }
+
+              break;
+
+            case "vn":
+              state.normals.push(parseFloat(data[1]), parseFloat(data[2]), parseFloat(data[3]));
+              break;
+
+            case "vt":
+              state.uvs.push(parseFloat(data[1]), parseFloat(data[2]));
+              break;
           }
+        } else if (lineFirstChar === "f") {
+          var lineData = line.substr(1).trim();
+          var vertexData = lineData.split(/\s+/);
+          var faceVertices = []; // Parse the face vertex data into an easy to work with format
+
+          for (var j = 0, jl = vertexData.length; j < jl; j++) {
+            var vertex = vertexData[j];
+
+            if (vertex.length > 0) {
+              var vertexParts = vertex.split("/");
+              faceVertices.push(vertexParts);
+            }
+          } // Draw an edge between the first vertex and all subsequent vertices to form an n-gon
+
+
+          var v1 = faceVertices[0];
+
+          for (var j = 1, jl = faceVertices.length - 1; j < jl; j++) {
+            var v2 = faceVertices[j];
+            var v3 = faceVertices[j + 1];
+            state.addFace(v1[0], v2[0], v3[0], v1[1], v2[1], v3[1], v1[2], v2[2], v3[2]);
+          }
+        } else if (lineFirstChar === "l") {
+          var lineParts = line.substring(1).trim().split(" ");
+          var lineVertices = [];
+          var lineUVs = [];
+
+          if (line.indexOf("/") === -1) {
+            lineVertices = lineParts;
+          } else {
+            for (var li = 0, llen = lineParts.length; li < llen; li++) {
+              var parts = lineParts[li].split("/");
+              if (parts[0] !== "") lineVertices.push(parts[0]);
+              if (parts[1] !== "") lineUVs.push(parts[1]);
+            }
+          }
+
+          state.addLineGeometry(lineVertices, lineUVs);
+        } else if (lineFirstChar === "p") {
+          var lineData = line.substr(1).trim();
+          var pointData = lineData.split(" ");
+          state.addPointGeometry(pointData);
+        } else if ((result = object_pattern.exec(line)) !== null) {
+          // o object_name
+          // or
+          // g group_name
+          // WORKAROUND: https://bugs.chromium.org/p/v8/issues/detail?id=2869
+          // var name = result[ 0 ].substr( 1 ).trim();
+          var name = (" " + result[0].substr(1).trim()).substr(1);
+          state.startObject(name);
+        } else if (material_use_pattern.test(line)) {
+          // material
+          state.object.startMaterial(line.substring(7).trim(), state.materialLibraries);
+        } else if (material_library_pattern.test(line)) {
+          // mtl file
+          state.materialLibraries.push(line.substring(7).trim());
+        } else if (map_use_pattern.test(line)) {
+          // the line is parsed but ignored since the loader assumes textures are defined MTL files
+          // (according to https://www.okino.com/conv/imp_wave.htm, 'usemap' is the old-style Wavefront texture reference method)
+          console.warn('OBJLoader: Rendering identifier "usemap" not supported. Textures must be defined in MTL files.');
+        } else if (lineFirstChar === "s") {
+          result = line.split(" "); // smooth shading
+          // @todo Handle files that have varying smooth values for a set of faces inside one geometry,
+          // but does not define a usemtl for each face set.
+          // This should be detected and a dummy material created (later MultiMaterial and geometry groups).
+          // This requires some care to not create extra material on each smooth value for "normal" obj files.
+          // where explicit usemtl defines geometry groups.
+          // Example asset: examples/models/obj/cerberus/Cerberus.obj
+
+          /*
+           * http://paulbourke.net/dataformats/obj/
+           * or
+           * http://www.cs.utah.edu/~boulos/cs3505/obj_spec.pdf
+           *
+           * From chapter "Grouping" Syntax explanation "s group_number":
+           * "group_number is the smoothing group number. To turn off smoothing groups, use a value of 0 or off.
+           * Polygonal elements use group numbers to put elements in different smoothing groups. For free-form
+           * surfaces, smoothing groups are either turned on or off; there is no difference between values greater
+           * than 0."
+           */
+
+          if (result.length > 1) {
+            var value = result[1].trim().toLowerCase();
+            state.object.smooth = value !== "0" && value !== "off";
+          } else {
+            // ZBrush can produce "s" lines #11707
+            state.object.smooth = true;
+          }
+
+          var material = state.object.currentMaterial();
+          if (material) material.smooth = state.object.smooth;
+        } else {
+          // Handle null terminated files without exception
+          if (line === "\0") continue;
+          throw new Error('OBJLoader: Unexpected line: "' + line + '"');
+        }
+      }
+
+      state.finalize();
+      var container = new three__WEBPACK_IMPORTED_MODULE_0__["Group"]();
+      container.materialLibraries = [].concat(state.materialLibraries);
+
+      for (var i = 0, l = state.objects.length; i < l; i++) {
+        var object = state.objects[i];
+        var geometry = object.geometry;
+        var materials = object.materials;
+        var isLine = geometry.type === "Line";
+        var isPoints = geometry.type === "Points";
+        var hasVertexColors = false; // Skip o/g line declarations that did not follow with any faces
+
+        if (geometry.vertices.length === 0) continue;
+        var buffergeometry = new three__WEBPACK_IMPORTED_MODULE_0__["BufferGeometry"]();
+        buffergeometry.setAttribute("position", new three__WEBPACK_IMPORTED_MODULE_0__["Float32BufferAttribute"](geometry.vertices, 3));
+
+        if (geometry.normals.length > 0) {
+          buffergeometry.setAttribute("normal", new three__WEBPACK_IMPORTED_MODULE_0__["Float32BufferAttribute"](geometry.normals, 3));
+        } else {
+          buffergeometry.computeVertexNormals();
         }
 
-        if (!material) {
-          material = !isLine ? new THREE.MeshPhongMaterial() : new THREE.LineBasicMaterial();
-          material.name = sourceMaterial.name;
+        if (geometry.colors.length > 0) {
+          hasVertexColors = true;
+          buffergeometry.setAttribute("color", new three__WEBPACK_IMPORTED_MODULE_0__["Float32BufferAttribute"](geometry.colors, 3));
         }
 
-        material.flatShading = sourceMaterial.smooth ? THREE.SmoothShading : THREE.FlatShading;
-        createdMaterials.push(material);
-      } // Create mesh
+        if (geometry.uvs.length > 0) {
+          buffergeometry.setAttribute("uv", new three__WEBPACK_IMPORTED_MODULE_0__["Float32BufferAttribute"](geometry.uvs, 2));
+        } // Create materials
 
 
-      var mesh;
+        var createdMaterials = [];
 
-      if (createdMaterials.length > 1) {
         for (var mi = 0, miLen = materials.length; mi < miLen; mi++) {
           var sourceMaterial = materials[mi];
-          buffergeometry.addGroup(sourceMaterial.groupStart, sourceMaterial.groupCount, mi);
+          var material = undefined;
+
+          if (this.materials !== null) {
+            material = this.materials.create(sourceMaterial.name); // mtl etc. loaders probably can't create line materials correctly, copy properties to a line material.
+
+            if (isLine && material && !(material instanceof three__WEBPACK_IMPORTED_MODULE_0__["LineBasicMaterial"])) {
+              var materialLine = new three__WEBPACK_IMPORTED_MODULE_0__["LineBasicMaterial"]();
+              three__WEBPACK_IMPORTED_MODULE_0__["Material"].prototype.copy.call(materialLine, material);
+              materialLine.color.copy(material.color);
+              material = materialLine;
+            } else if (isPoints && material && !(material instanceof three__WEBPACK_IMPORTED_MODULE_0__["PointsMaterial"])) {
+              var materialPoints = new three__WEBPACK_IMPORTED_MODULE_0__["PointsMaterial"]({
+                size: 10,
+                sizeAttenuation: false
+              });
+              three__WEBPACK_IMPORTED_MODULE_0__["Material"].prototype.copy.call(materialPoints, material);
+              materialPoints.color.copy(material.color);
+              materialPoints.map = material.map;
+              material = materialPoints;
+            }
+          }
+
+          if (!material) {
+            if (isLine) {
+              material = new three__WEBPACK_IMPORTED_MODULE_0__["LineBasicMaterial"]();
+            } else if (isPoints) {
+              material = new three__WEBPACK_IMPORTED_MODULE_0__["PointsMaterial"]({
+                size: 1,
+                sizeAttenuation: false
+              });
+            } else {
+              material = new three__WEBPACK_IMPORTED_MODULE_0__["MeshPhongMaterial"]();
+            }
+
+            material.name = sourceMaterial.name;
+          }
+
+          material.flatShading = !sourceMaterial.smooth;
+          material.vertexColors = hasVertexColors ? three__WEBPACK_IMPORTED_MODULE_0__["VertexColors"] : three__WEBPACK_IMPORTED_MODULE_0__["NoColors"];
+          createdMaterials.push(material);
+        } // Create mesh
+
+
+        var mesh;
+
+        if (createdMaterials.length > 1) {
+          for (var mi = 0, miLen = materials.length; mi < miLen; mi++) {
+            var sourceMaterial = materials[mi];
+            buffergeometry.addGroup(sourceMaterial.groupStart, sourceMaterial.groupCount, mi);
+          }
+
+          if (isLine) {
+            mesh = new three__WEBPACK_IMPORTED_MODULE_0__["LineSegments"](buffergeometry, createdMaterials);
+          } else if (isPoints) {
+            mesh = new three__WEBPACK_IMPORTED_MODULE_0__["Points"](buffergeometry, createdMaterials);
+          } else {
+            mesh = new three__WEBPACK_IMPORTED_MODULE_0__["Mesh"](buffergeometry, createdMaterials);
+          }
+        } else {
+          if (isLine) {
+            mesh = new three__WEBPACK_IMPORTED_MODULE_0__["LineSegments"](buffergeometry, createdMaterials[0]);
+          } else if (isPoints) {
+            mesh = new three__WEBPACK_IMPORTED_MODULE_0__["Points"](buffergeometry, createdMaterials[0]);
+          } else {
+            mesh = new three__WEBPACK_IMPORTED_MODULE_0__["Mesh"](buffergeometry, createdMaterials[0]);
+          }
         }
 
-        var multiMaterial = new THREE.MultiMaterial(createdMaterials);
-        mesh = !isLine ? new THREE.Mesh(buffergeometry, multiMaterial) : new THREE.LineSegments(buffergeometry, multiMaterial);
-      } else {
-        mesh = !isLine ? new THREE.Mesh(buffergeometry, createdMaterials[0]) : new THREE.LineSegments(buffergeometry, createdMaterials[0]);
+        mesh.name = object.name;
+        container.add(mesh);
       }
 
-      mesh.name = object.name;
-      container.add(mesh);
-    } //console.timeEnd( 'OBJLoader' );
+      console.timeEnd("OBJLoader");
+      return container;
+    }
+  });
+  return OBJLoader;
+}();
 
-
-    return container;
-  }
-};
-module.exports = exports = OBJLoader;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
+/* harmony default export */ __webpack_exports__["default"] = (OBJLoader);
 
 /***/ }),
 /* 15 */
@@ -2244,9 +2285,9 @@ module.exports = exports = OBJLoader;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(THREE) {/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* WEBPACK VAR INJECTION */(function(THREE) {/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
 /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__);
@@ -2544,7 +2585,7 @@ function (_Layer) {
 }(_Layers_Layer_js__WEBPACK_IMPORTED_MODULE_6__["default"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (Map);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))
 
 /***/ }),
 /* 16 */
@@ -2633,7 +2674,7 @@ function degreeify(rad) {
 }
 
 
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))
 
 /***/ }),
 /* 19 */
@@ -2641,9 +2682,9 @@ function degreeify(rad) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
 /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__);
@@ -2748,9 +2789,9 @@ function (_Layer) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
 /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__);
@@ -2981,9 +3022,9 @@ function (_Layer) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
 /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__);
@@ -3223,9 +3264,9 @@ function (_Layer) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return VRLayer; });
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
 /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__);
@@ -3397,9 +3438,9 @@ function (_Layer) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(THREE) {/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(0);
+/* WEBPACK VAR INJECTION */(function(THREE) {/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(1);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(2);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(3);
 /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_2__);
@@ -3487,7 +3528,7 @@ function (_Layer) {
 }(_Layer_js__WEBPACK_IMPORTED_MODULE_5__["default"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (PointsLayer);
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(2)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(0)))
 
 /***/ }),
 /* 24 */
@@ -3498,9 +3539,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return _default; });
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(10);
 /* harmony import */ var _babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_toConsumableArray__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(0);
+/* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(1);
 /* harmony import */ var _babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_classCallCheck__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(1);
+/* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(2);
 /* harmony import */ var _babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_createClass__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(3);
 /* harmony import */ var _babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_possibleConstructorReturn__WEBPACK_IMPORTED_MODULE_3__);
@@ -3508,7 +3549,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_getPrototypeOf__WEBPACK_IMPORTED_MODULE_4__);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(5);
 /* harmony import */ var _babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_inherits__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(2);
+/* harmony import */ var three__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(0);
 /* harmony import */ var three__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(three__WEBPACK_IMPORTED_MODULE_6__);
 
 
