@@ -17,8 +17,8 @@
  */
 const PigeonGL = {
 	OrbitControls: require("./Camera/OrbitControls.js").default,
-	MTLLoader: require("./Loaders/MTLLoader.js"),
-	OBJLoader: require("./Loaders/OBJLoader.js"),
+	MTLLoader: require("./Loaders/MTLLoader.js").default,
+	OBJLoader: require("./Loaders/OBJLoader.js").default,
 
 	//core
 	Map: require("./Map.js").default,

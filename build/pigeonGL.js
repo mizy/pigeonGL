@@ -614,8 +614,8 @@ __webpack_require__.r(__webpack_exports__);
  */
 var PigeonGL = {
   OrbitControls: __webpack_require__(12)["default"],
-  MTLLoader: __webpack_require__(13),
-  OBJLoader: __webpack_require__(14),
+  MTLLoader: __webpack_require__(13)["default"],
+  OBJLoader: __webpack_require__(14)["default"],
   //core
   Map: __webpack_require__(15)["default"],
   Layer: __webpack_require__(6)["default"],
