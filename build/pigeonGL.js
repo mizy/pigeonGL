@@ -2442,14 +2442,12 @@ function (_Layer) {
       }
 
       this.renderer.render(this.scene, this.camera);
-      var device;
-
-      if (device = this.renderer.vr.getDevice()) {
-        this.animationframe = device.requestAnimationFrame(function (timestamp) {
-          if (_this2.status != "stop") _this2.update(delta, timestamp);
-        });
-        return;
-      }
+      var device; // if ((device = this.renderer.vr.getDevice())) {
+      // 	this.animationframe = device.requestAnimationFrame((timestamp) => {
+      // 		if (this.status != "stop") this.update(delta, timestamp);
+      // 	});
+      // 	return;
+      // }
 
       this.animationframe = requestAnimationFrame(function (timestamp) {
         if (_this2.status != "stop") _this2.update(delta, timestamp);

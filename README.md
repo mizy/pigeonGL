@@ -1,6 +1,7 @@
 # [pigeon-gl](https://mizy.github.io/pigeonGL)
-3d map with three.js 
-used in auto-drive simulation systerm
++ 3d map with three.js 
++ used in auto-drive simulation systerm
++ map control
 
 # demo 
 [basic](https://mizy.github.io/pigeonGL/examples/basic/index.html)
@@ -23,7 +24,7 @@ basic
     })
 
     //add models
-    map.addAtCoordinate(obj,[0,0])
+    map.world.add(obj)
     
 ```
 

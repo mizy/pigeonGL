@@ -124,12 +124,12 @@ class Map extends Layer {
 		this.renderer.render(this.scene, this.camera);
 
 		let device;
-		if ((device = this.renderer.vr.getDevice())) {
-			this.animationframe = device.requestAnimationFrame((timestamp) => {
-				if (this.status != "stop") this.update(delta, timestamp);
-			});
-			return;
-		}
+		// if ((device = this.renderer.vr.getDevice())) {
+		// 	this.animationframe = device.requestAnimationFrame((timestamp) => {
+		// 		if (this.status != "stop") this.update(delta, timestamp);
+		// 	});
+		// 	return;
+		// }
 
 		this.animationframe = requestAnimationFrame((timestamp) => {
 			if (this.status != "stop") this.update(delta, timestamp);
