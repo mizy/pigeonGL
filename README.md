@@ -12,7 +12,8 @@ basic
 # api
 [documention](https://mizy.github.io/pigeonGL/doc/)
 ```
-	import PigeonGL from 'pigeon-gl';
+import PigeonGL from 'pigeon-gl';
+
     var map = new PigeonGL.Map({
         container:document.getElementById("map"),
         center:[0,0],

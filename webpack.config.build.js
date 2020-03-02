@@ -14,7 +14,7 @@ module.exports = {
 		libraryExport: "default" // 默认导出
 	},
 	optimization: {
-		minimizer: []
+		// minimizer: []
 	},
 	externals: {
 		three: "three"
