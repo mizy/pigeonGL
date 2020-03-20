@@ -5,7 +5,7 @@ const webpack = require("webpack")
 
 module.exports = {
 	entry: {
-		pigeonGL: './src/PigeonGL.js',
+		demo: './demo.js',
 		// 'lib/three':'./src/lib/three.js'
 	},
 	output: {

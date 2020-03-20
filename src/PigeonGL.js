@@ -38,6 +38,4 @@ const PigeonGL = {
 	//util
 	Text: require("./Utils/ThreeText.js").default
 }
-window.PigeonGL = PigeonGL;
-window.THREE = THREE;
 export default PigeonGL;
