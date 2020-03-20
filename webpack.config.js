@@ -10,10 +10,7 @@ module.exports = {
 	},
 	output: {
 		path: path.resolve(__dirname, 'build'),
-		filename: '[name].js',
-		library: "PigeonGL",
-		libraryTarget: "umd",
-		libraryExport: "default" // 默认导出
+		filename: 'index.js',
 	},
 
 	devServer: {
@@ -48,6 +45,7 @@ module.exports = {
 		]
 	},
 	// devtool: 'inline-source-map',
+
 	plugins: [
 		new webpack.ProvidePlugin({
 			THREE: "three"

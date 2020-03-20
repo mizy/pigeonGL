@@ -1,3 +1,6 @@
+
+
+import * as THREE from "three";
 /**
  * window.PigeonGL 
  * @example
@@ -36,4 +39,5 @@ const PigeonGL = {
 	Text: require("./Utils/ThreeText.js").default
 }
 window.PigeonGL = PigeonGL;
+window.THREE = THREE;
 export default PigeonGL;
